@@ -2,7 +2,16 @@ const spicedPg = require('spiced-pg');
 const db = spicedPg(process.env.DATABASE_URL || "postgres:postgres:postgres@localhost:5432/users");
 const { compare } = require('bcryptjs');
 
-module.exports.insertUsers = (first, last, email, password) => {
+// module.exports.insertUsers = (first, last, email, password) => {
+//     return db.query(
+//         `INSERT INTO users (first, last, email, password)
+//         VALUES ($1, $2, $3, $4)
+//         RETURNING id`,
+//         [first, last, email, password]
+//     );
+// };
+
+module.exports.insertNewUser = (first, last, email, password) => {
     return db.query(
         `INSERT INTO users (first, last, email, password)
         VALUES ($1, $2, $3, $4)
@@ -73,7 +82,7 @@ module.exports.getMoreUsers = (val) => {
     });
 };
 
-module.exports.initFriendShipStatus = (sender_id,receiver_id) => {
+module.exports.initFriendShipStatus = (sender_id, receiver_id) => {
     return db.query(
         `SELECT * FROM friendships
         WHERE (receiver_id = $1 AND sender_id = $2)
@@ -172,3 +181,97 @@ module.exports.getNewMsg = (userId) => {
         console.log("getNewMsg by id query ==>", error.message);
     });
 };
+
+
+
+module.exports.getPilatesCustomers = () => {
+    return db.query(
+        `SELECT *
+        FROM pilatesusers
+        GROUP BY pilatesusers.id
+        ORDER BY count(pilatesusers.id) ASC
+        LIMIT 8`
+    ).catch(error => {
+        console.log("getLastTenMessages by id query ==>", error.message);
+    });
+};
+
+module.exports.deletePilatesCustomer = (id) => {
+    console.log("query", id);
+    return db.query(
+        `DELETE FROM pilatesusers WHERE pilatesusers.id = $1`,
+        [id]
+    ).catch(error => {
+        console.log("deletePilatesCustomer by id query ==>", error.message);
+    });
+};
+
+module.exports.getYinCustomers = () => {
+    return db.query(
+        `SELECT *
+        FROM yinusers
+        GROUP BY yinusers.id
+        ORDER BY count(yinusers.id) ASC
+        LIMIT 4`
+    ).catch(error => {
+        console.log("getLastTenMessages by id query ==>", error.message);
+    });
+};
+
+module.exports.deleteYinCustomer = (id) => {
+    return db.query(
+        `DELETE FROM yinusers WHERE yinusers.id = $1`,
+        [id]
+    ).catch(error => {
+        console.log("deleteYinCustomer by id query ==>", error.message);
+    });
+};
+
+module.exports.totalUsers = () => {
+    return db.query(
+        `SELECT * FROM users`        
+    );
+};
+
+module.exports.deleteUser = (id) => {
+    console.log("query", id);
+    return db.query(
+        `DELETE FROM users WHERE users.id = $1`,
+        [id]
+    ).catch(error => {
+        console.log("deleteUser by id query ==>", error.message);
+    });
+};
+
+module.exports.getByEmailClient = (email) => {
+    return db.query(
+        `SELECT * FROM users WHERE email = $1`,
+        [email]
+    ).catch(error => {
+        console.log("getByEmailClient by id query ==>", error.message);
+    });;
+};
+
+module.exports.insertIntoPilates = (first, last, email, imgurl, selection) => {
+    return db.query(
+        `INSERT INTO pilatesusers (first, last, email, imgurl, selection)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id`,
+        [first, last, email, imgurl, selection]
+    ).catch(error => {
+        console.log("insertIntoPilates by id query ==>", error.message);
+    });
+};
+
+module.exports.insertYoga = (first, last, email, imgurl, selection) => {
+    return db.query(
+        `INSERT INTO yinusers (first, last, email, imgurl, selection)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id`,
+        [first, last, email, imgurl, selection]
+    ).catch(error => {
+        console.log("insertYoga by id query ==>", error.message);
+    });;
+};
+
+

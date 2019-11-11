@@ -65,6 +65,13 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
         };
     }
 
+    if (action.type === 'TOTAL_CLIENTS' || action.type === 'REGISTER_USERS') {
+        state = {
+            ...state,
+            users: action.users
+        };
+    }
+
     return state;
 };
 

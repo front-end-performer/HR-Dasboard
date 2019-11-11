@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Welcome from './components/Welcome/Welcome';
 import Dashboard from './components/Dashboard/Dashboard';
 //redux
@@ -17,7 +18,7 @@ let elem;
 const userIsLogin = location.pathname != '/welcome';
 
 if (!userIsLogin) {
-    elem = <Welcome />;
+    elem = <Welcome />
 } else {
     init(store);
     elem = (

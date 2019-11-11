@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from '../../axios'; // './axios' instance
 import { Animated } from "react-animated-css";
 import { HashRouter, Link } from 'react-router-dom';
+// import Chat from '../Dashboard/Chat/Chat';
+import { Button } from 'reactstrap';
 
 class Login extends Component {
     constructor(props) {
@@ -41,14 +43,17 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
+                {/* <div style={{position: 'absolute'}}>
+                    <Chat />
+                </div> */}
                 <Animated animationIn="fadeIn" animationOut="fadeOut" isVisible={true}>
                     <div className="form">
                         {this.state.error && (<div className="error">Something went wrong. Please try again!</div>)}
                         <input type="email" className="inputs" required name="email" onChange={e => this.handleChange(e)} />
                         <label>{this.state.email != "" ? 'Your email' : "*email"}</label>
                         <input type="password" className="inputs" required name="password" onChange={e => this.handleChange(e)} />
-                        <label>{this.state.password != "" ? 'Create password' : "*password"}</label>
-                        <button onClick={() => this.login()}>Login</button>
+                        <label>{this.state.password != "" ? 'Your password' : "*password"}</label>
+                        <Button color="secondary" size="sm" onClick={() => this.login()}>Login</Button>
                         <HashRouter>
                             <span className="form__lnk">Not yet, a member? <Link className="lnks" to="/">Register</Link></span>
                         </HashRouter>

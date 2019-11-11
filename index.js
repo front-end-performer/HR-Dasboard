@@ -21,7 +21,17 @@ const {
     pendingUsers,
     getLastTenMessages,
     insertUsersMessages,
-    getNewMsg
+    getNewMsg,
+    getPilatesCustomers,
+    deletePilatesCustomer,
+    getYinCustomers,
+    deleteYinCustomer,
+    totalUsers,
+    insertNewUser,
+    deleteUser,
+    getByEmailClient,
+    insertIntoPilates,
+    insertYoga
 } = require('./sql/db');
 const s3 = require('./s3');
 const { s3Url } = require('./config');
@@ -84,6 +94,8 @@ if (process.env.NODE_ENV != 'production') {
     app.use('/bundle.js', (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+// const { TRELLO_KEY, TRELLO_OAUTH_SECRET } = require('./trello');
+
 app.get('/welcome', (req, res) => {
     if (req.session.userId) {
         res.redirect('/');
@@ -92,27 +104,106 @@ app.get('/welcome', (req, res) => {
     }
 });
 
+
 app.post('/register', (req, res) => {
+    let { email, select } = req.body;
+    console.log("req.body==>", email, select);
+
+    if (select) {
+        getByEmailClient(email).then(({ rows }) => {
+            let [first, last, email, imgurl] = [rows[0].first, rows[0].last, rows[0].email, rows[0].imgurl];
+            
+            if (select === 'pilates') {
+                insertIntoPilates(first, last, email, imgurl, select);
+            } else if (select === 'yoga') { 
+                insertYoga(first, last, email, imgurl, select);
+            }
+        }).catch(error => { 
+            console.log(error);
+            res.statusCode(500);
+        })
+    } else { 
+        res.render('register', { error: true });
+    }
+    
+});
+
+// app.post('/register', (req, res) => {
+//     let { first, last, email, password } = req.body;
+//     console.log("req.body==>", first, last, email, password);
+
+//     if (first != '' && last != '' && email != '' && password != '') {
+//         hash(password).then(result => {
+//             password = result;
+//             insertUsers(first, last, email, password).then(result => {
+//                 // console.log("insertUsersresult", result);
+//                 let id = result.rows[0].id;
+//                 req.session.userId = id;
+//                 // console.log("id", id);
+//                 // console.log("req.session.userId", req.session.userId);
+
+//                 res.redirect('/');
+//             }).catch(error => console.log("insertUser error", error));
+//         }).catch(error => console.log("hash error:", error.message));
+//     } else {
+//         return res.render('register', { error: true });
+//     }
+// });
+
+app.post('/register-newuser', (req, res) => {
     let { first, last, email, password } = req.body;
     console.log("req.body==>", first, last, email, password);
 
     if (first != '' && last != '' && email != '' && password != '') {
         hash(password).then(result => {
             password = result;
-            insertUsers(first, last, email, password).then(result => {
+            insertNewUser(first, last, email, password).then(result => {
                 // console.log("insertUsersresult", result);
-                let id = result.rows[0].id;
-                req.session.userId = id;
+                // let id = result.rows[0].id;
+                // req.session.userId = id;
                 // console.log("id", id);
                 // console.log("req.session.userId", req.session.userId);
-
-                res.redirect('/');
+                totalUsers().then(({ rows }) => {
+                    res.json(rows);
+                })
+                // res.redirect('/');
             }).catch(error => console.log("insertUser error", error));
         }).catch(error => console.log("hash error:", error.message));
     } else {
-        return res.render('register', { error: true });
+        return res.render('register-newuser', { error: true });
     }
 });
+
+// app.post('/pilates-class', (req, res) => {
+//     let { email, select } = req.body;
+
+//     //getting users hashed password by email from db
+//     getByEmailClient(email).then(({ rows }) => {
+
+//         console.log("getEmailByClient server==>", rows);
+//         res.json(rows);
+//         // comparing types password with hashed password
+//         // getCheckPassword(password, hashPassword).then(isMatch => {
+//         //     if (isMatch) {
+//         //         req.session.userId = result.rows[0].id;
+//         //         // console.log("req.session.userId)", req.session.userId);
+//         //         res.redirect('/dashboard');
+//         //     } else {
+//         //         // console.log("isMatch", isMatch);
+//         //         res.sendStatus(500);
+//         //     }
+//         // }).catch(error => {
+//         //     console.log("getCheckedByPassword", error);
+//         //     res.sendStatus(500);
+//         // });
+//     }).catch(error => {
+//         console.log("getByEmailClient error", error.message);
+//         res.sendStatus(500);
+//     });
+// });
+
+
+
 
 app.post('/login', (req, res) => {
     let { email, password } = req.body;
@@ -184,6 +275,40 @@ app.post('/bio', (req, res) => {
         res.json(rows);
     });
 });
+
+app.get('/total-clients', async (req, res) => {
+    const { rows } = await totalUsers();
+    res.json(rows);
+})
+
+app.post('/delete-client/:id', async (req, res) => {
+    let { id } = req.params;
+    const { rows } = await deleteUser(id);
+    res.json(rows);
+})
+
+app.get('/pilates-customers', async (req, res) => {
+    const { rows } = await getPilatesCustomers();
+    res.json(rows);
+})
+
+app.post('/pilates-customers/:id', async (req, res) => {
+    let { id } = req.params;
+    console.log("req.params", id);
+    const { rows } = await deletePilatesCustomer(id);
+    res.json(rows);
+})
+
+app.get('/yin-customers', async (req, res) => {
+    const { rows } = await getYinCustomers();
+    res.json(rows);
+})
+
+app.post('/yin-customers/:id', async (req, res) => {
+    let { id } = req.params;
+    const { rows } = await deleteYinCustomer(id);
+    res.json(rows);
+})
 
 // Find people
 
@@ -284,10 +409,10 @@ io.on('connection', socket => {
     }
     const userId = socket.request.session.userId;
     onlineUsers[socket.id] = userId;
-    
+
     const getUnique = (users) => Array.from(new Set(Object.values(users)));
     const uniqueUsers = getUnique(onlineUsers);
-    
+
     console.log("uniquertwretwertwert==>>", uniqueUsers);
     io.sockets.emit('onlineUsers', uniqueUsers);
 
@@ -324,6 +449,8 @@ io.on('connection', socket => {
     });
 
 });
+
+
 
 // io.on('connection', (socket) => {
 //     console.log(`socket with the id ${socket.id} is now connected`);

@@ -56,3 +56,20 @@ export function onlineUsers(onlnUsr) {
         onlnUsr: onlnUsr
     };    
 }
+
+export async function totalUsers() {
+    const { data } = await axios.get('/total-clients');
+    return {
+        type: 'TOTAL_CLIENTS',
+        users: data
+    };   
+}
+
+
+export async function register() {
+    const { data } = await axios.get('/register-newuser');
+    return {
+        type: 'REGISTER_USERS',
+        users: data
+    };   
+}

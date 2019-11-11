@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../axios';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Manager from './Manager';
 import Profile from './Profile/Profile';
 import ProfileImg from './Profile/ProfileImg/ProfileImg';
 import BioEditor from './Profile/BioEditor/BioEditor';
@@ -10,6 +11,7 @@ import OtherProfile from './OtherProfile/OtherProfile';
 import FindPeople from '../Dashboard/FindPeople/FindPeople';
 import Friends from './Friends/Friends';
 import ChatRoom from './Chat/ChatRoom/ChatRoom';
+
 
 class Dashboard extends Component {
     constructor() {
@@ -36,7 +38,6 @@ class Dashboard extends Component {
     }
 
     showUploader() {
-        // console.log("toggled uploader");
         let { uploaderIsVisiable } = this.state;
         this.setState({
             uploaderIsVisiable: !uploaderIsVisiable
@@ -90,7 +91,10 @@ class Dashboard extends Component {
                             clickUploader={() => this.showUploader()}
                         />
 
-                        <Route exact path="/" render={
+                        <Route exact path="/" component={Manager}
+                        />
+
+                        <Route path="/profile" render={
                             () =>
                                 <Profile
                                     id={this.state.id}
