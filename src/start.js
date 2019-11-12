@@ -18,7 +18,11 @@ let elem;
 const userIsLogin = location.pathname != '/welcome';
 
 if (!userIsLogin) {
-    elem = <Welcome />
+    elem = (
+        <Provider store={store}>
+            <Welcome />
+        </Provider>
+    );
 } else {
     init(store);
     elem = (

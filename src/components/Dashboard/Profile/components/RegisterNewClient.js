@@ -15,7 +15,7 @@ const RegisterNewClient = () => {
                 data: data
             });
         });
-    }, [data]);
+    }, []);
 
     function useStatefulFields() {
         const [values, setValues] = useState({});
@@ -26,7 +26,6 @@ const RegisterNewClient = () => {
                 [e.target.name]: e.target.value
             });
         };
-
         return [values, handleChange];
     }
 
@@ -34,6 +33,7 @@ const RegisterNewClient = () => {
         axios.post('/register-newuser', values).then(() => {
             // location.replace('/');
             dispatch(totalUsers());
+            setValues('');
         }).catch(error => {
             console.log("register submit error", error);
             this.setState({
@@ -48,15 +48,26 @@ const RegisterNewClient = () => {
                 <CardBody>
                     <Form>
                         <FormGroup row>
-                            <Label style={{ fontSize: '0.9em' }} for="exampleEmail" sm={2}>First Name</Label>
+                            <Label style={{ fontSize: '0.9em' }} for="exampleSelect" sm={2}>Gender</Label>
                             <Col sm={10}>
-                                <Input onChange={handleChange} type="text" name="first" id="exampleText" placeholder="first name" />
+                                <Input onChange={handleChange} type="select" name="gender" id="exampleSelect">
+                                    <option>Select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </Input>
                             </Col>
                         </FormGroup>
                         <FormGroup row>
-                            <Label style={{ fontSize: '0.9em' }} for="exampleEmail" sm={2}>Last Name</Label>
+                            <Label style={{ fontSize: '0.9em' }} for="exampleFirst" sm={2}>First Name</Label>
                             <Col sm={10}>
-                                <Input onChange={handleChange} type="text" name="last" id="exampleText" placeholder="last name" />
+                                <Input onChange={handleChange} type="text" name="first" id="exampleFirst" placeholder="first name" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label style={{ fontSize: '0.9em' }} for="exampleLast" sm={2}>Last Name</Label>
+                            <Col sm={10}>
+                                <Input onChange={handleChange} type="text" name="last" id="exampleLast" placeholder="last name" />
                             </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -66,56 +77,40 @@ const RegisterNewClient = () => {
                             </Col>
                         </FormGroup>
                         <FormGroup row>
-                            <Label style={{ fontSize: '0.9em' }} for="examplePassword" sm={2}>Password</Label>
+                            <Label style={{ fontSize: '0.9em' }} for="examplePhone" sm={2}>Phone</Label>
                             <Col sm={10}>
-                                <Input onChange={handleChange} type="password" name="password" id="examplePassword" placeholder="password" />
+                                <Input onChange={handleChange} type="number" name="phone" id="examplePhone" placeholder="phone" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label style={{ fontSize: '0.9em' }} for="exampleDOB" sm={2}>DOB</Label>
+                            <Col sm={10}>
+                                <Input onChange={handleChange} type="date" name="dob" id="exampleDOB" placeholder="your DOB" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label style={{ fontSize: '0.9em' }} for="exampleAddress" sm={2}>Address</Label>
+                            <Col sm={10}>
+                                <Input onChange={handleChange} type="address" name="address" id="exampleAddress" placeholder="address" />
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label style={{ fontSize: '0.9em' }} for="examplePackage" sm={2}>Package</Label>
+                            <Col sm={10}>
+                                <Input onChange={handleChange} type="select" name="package" id="examplePackage">
+                                    <option>Select</option>
+                                    <option>8 weeks</option>
+                                    <option>12 weeks</option>
+                                </Input>
+                            </Col>
+                        </FormGroup>
+                        <FormGroup row>
+                            <Label style={{ fontSize: '0.9em' }} for="exampleAddInfo" sm={2}>Additional info</Label>
+                            <Col sm={10}>
+                                <Input onChange={handleChange} type="textarea" name="bio" id="exampleAddInfo" />
                             </Col>
                         </FormGroup>
                         {/* <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="exampleEmail" sm={2}>Phone</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="number" name="phone" id="exampleEmail" placeholder="phone" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="exampleSelect" sm={2}>Gender</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="select" name="sex" id="exampleSelect">
-                                        <option>Select</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                    </Input>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="exampleEmail" sm={2}>DOB</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="date" name="dob" id="exampleDate" placeholder="your DOB" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="examplePassword" sm={2}>Address</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="street" name="address" id="exampleAddress" placeholder="address" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="exampleSelect" sm={2}>Package</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="select" name="select" id="exampleSelect">
-                                        <option>8 weeks</option>
-                                        <option>12 weeks</option>
-                                    </Input>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="exampleText" sm={2}>Additional info</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="textarea" name="addInfo" id="exampleText" />
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
                                 <Label style={{fontSize: '0.9em'}} for="exampleFile" sm={2}>File</Label>
                                 <Col sm={10}>
                                     <Input onChange={e => this.handleChange(e)} type="file" name="file" id="exampleFile" />

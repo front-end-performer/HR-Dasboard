@@ -11,12 +11,12 @@ const { compare } = require('bcryptjs');
 //     );
 // };
 
-module.exports.insertNewUser = (first, last, email, password) => {
+module.exports.insertNewUser = (gender, first, last, email, phone, dob, address, package, bio) => {
     return db.query(
-        `INSERT INTO users (first, last, email, password)
-        VALUES ($1, $2, $3, $4)
+        `INSERT INTO users (gender, first, last, email, phone, dob, address, package, bio)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
         RETURNING id`,
-        [first, last, email, password]
+        [gender, first, last, email, phone, dob, address, package, bio]
     );
 };
 
@@ -192,14 +192,14 @@ module.exports.getPilatesCustomers = () => {
         ORDER BY count(pilatesusers.id) ASC
         LIMIT 8`
     ).catch(error => {
-        console.log("getLastTenMessages by id query ==>", error.message);
+        console.log("getPilatesCustomers by id query ==>", error.message);
     });
 };
 
 module.exports.deletePilatesCustomer = (id) => {
-    console.log("query", id);
     return db.query(
-        `DELETE FROM pilatesusers WHERE pilatesusers.id = $1`,
+        `DELETE FROM pilatesusers WHERE pilatesusers.id = $1
+        RETURNING id`,
         [id]
     ).catch(error => {
         console.log("deletePilatesCustomer by id query ==>", error.message);
@@ -212,9 +212,9 @@ module.exports.getYinCustomers = () => {
         FROM yinusers
         GROUP BY yinusers.id
         ORDER BY count(yinusers.id) ASC
-        LIMIT 4`
+        LIMIT 8`
     ).catch(error => {
-        console.log("getLastTenMessages by id query ==>", error.message);
+        console.log("getYinCustomers by id query ==>", error.message);
     });
 };
 

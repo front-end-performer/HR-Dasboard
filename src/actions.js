@@ -65,6 +65,36 @@ export async function totalUsers() {
     };   
 }
 
+export async function totalPilatesUsers() {
+    const { data } = await axios.get('/pilates-customers');
+    return {
+        type: 'PILATES_USERS',
+        data: data
+    };   
+}
+
+export async function removePilatesUser(id) {
+    const { data } = await axios.post(`/pilates-customers/${id}`);
+    return {
+        type: 'REMOVE_USER'
+    };    
+}
+
+export async function totalYogaUsers() {
+    const { data } = await axios.get('/yin-customers');
+    return {
+        type: 'YOGA_USERS',
+        yoga_users: data
+    };   
+}
+
+export async function removeYogaUsers(id) {
+    await axios.post(`/yin-customers/${id}`);
+    return {
+        type: 'REMOVEYOGA_USERS'
+    };   
+}
+
 
 export async function register() {
     const { data } = await axios.get('/register-newuser');
@@ -73,3 +103,13 @@ export async function register() {
         users: data
     };   
 }
+
+// export async function signUp(values) {
+//     const { data } = axios.post('/register', values);
+//     console.log("action", data);
+    
+//     return {
+//         type: 'SIGNUP_FOR_CLASS',
+//         data: data
+//     };   
+// }

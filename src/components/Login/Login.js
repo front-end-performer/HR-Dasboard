@@ -47,6 +47,8 @@ class Login extends Component {
                     <Chat />
                 </div> */}
                 <Animated animationIn="fadeIn" animationOut="fadeOut" isVisible={true}>
+                    <h3 style={{ textAlign: "center" }}>Admin form.</h3>
+                    <br />
                     <div className="form">
                         {this.state.error && (<div className="error">Something went wrong. Please try again!</div>)}
                         <input type="email" className="inputs" required name="email" onChange={e => this.handleChange(e)} />

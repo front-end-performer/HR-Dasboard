@@ -1,31 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Col, Badge, Table } from 'reactstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { totalPilatesUsers, removePilatesUser } from '../../../../actions';
 import { Link } from 'react-router-dom';
 import axios from '../../../../axios';
 
 const PilatesTable = () => {
     const [data, setData] = useState('');
+    const dispatch = useDispatch();
+    const pilatesUsers = useSelector(
+        state => state.pilates_users
+    );
 
+    console.log("pilates_users", pilatesUsers);
+    
+    
     useEffect(() => {
-        (async () => {
-            const { data } = await axios.get('/pilates-customers');
-            setData(
-                data
-            );
-        })();
+       dispatch(totalPilatesUsers());
     }, [data])
 
     const handleDelete = (id) => {
-        console.log('sdsd', id);
         axios.post(`/pilates-customers/${id}`).then(({ data }) => {
-            console.log("handleDelete", data);
             setData(
                 data
             );
         })
     }
 
-    if (!data) {
+    if (!pilatesUsers) {
         return null;
     }
 
@@ -40,19 +42,17 @@ const PilatesTable = () => {
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Contract expiration</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody style={{ overflowY: 'scroll', height: 500 }}>
-                            {data.map((emploee, index) => {
-                                return (<tr key={emploee.id}>
-                                            <td>{index + 1}</td>
-                                            <td>{emploee.first} {emploee.last}</td>
-                                    <td><Link to={`/user/${emploee.id}`}>{emploee.last}</Link></td>
-                                            <td>{emploee.last}</td>
-                                            <td>{emploee.email}</td>
-                                    <td><Badge color="success" onClick={() => handleDelete(emploee.id)}>SignedUp</Badge></td></tr>
+                            {pilatesUsers.map((pilatesclient, index) => {
+                                return (<tr key={pilatesclient.id}>
+                                    <td>{index + 1}</td>
+                                    <td><Link to={`/user/${pilatesclient.id}`}>{pilatesclient.first} {pilatesclient.last}</Link></td>
+                                    <td>{pilatesclient.email}</td>
+                                    <td>{pilatesclient.phone}</td>
+                                    <td><Badge color="danger" onClick={() => handleDelete(pilatesclient.id)}>Remove</Badge></td></tr>
                                 )
                             })}
                         </tbody>

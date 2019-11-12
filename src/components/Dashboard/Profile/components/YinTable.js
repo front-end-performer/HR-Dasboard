@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { totalYogaUsers, removeYogaUsers } from '../../../../actions';
 import { Card, CardBody, Col, Badge, Table } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import axios from '../../../../axios';
 
 const YinTable = () => {
     const [data, setData] = useState('');
+    const dispatch = useDispatch();
+    const yogaUsers = useSelector(
+        state => state.yoga_users
+    );
+
+    console.log("yogaUsers", yogaUsers);
 
     useEffect(() => {
-        (async () => {
-            const { data } = await axios.get('/yin-customers');
-            setData(
-                data
-            );
-        })();
+        dispatch(totalYogaUsers());
     }, [data])
 
     const handleDelete = (id) => {
@@ -22,7 +26,7 @@ const YinTable = () => {
         })
     }
 
-    if (!data) {
+    if (!yogaUsers) {
         return null;
     }
 
@@ -37,19 +41,17 @@ const YinTable = () => {
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Contract expiration</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
                         <tbody style={{ overflowY: 'scroll', height: 500 }}>
-                            {data.map((emploee, index) => {
-                                return (<tr key={emploee.id}>
+                            {yogaUsers.map((yinclient, index) => {
+                                return (<tr key={yinclient.id}>
                                     <td>{index + 1}</td>
-                                    <td>{emploee.first} {emploee.last}</td>
-                                    <td>{emploee.last}</td>
-                                    <td>{emploee.last}</td>
-                                    <td>{emploee.email}</td>
-                                    <td><Badge color="success" onClick={() => handleDelete(emploee.id)}>SignedUp</Badge></td></tr>
+                                    <td><Link to={`/user/${yinclient.id}`}>{yinclient.first} {yinclient.last}</Link></td>
+                                    <td>{yinclient.email}</td>
+                                    <td>{yinclient.phone}</td>
+                                    <td><Badge color="danger" onClick={() => handleDelete(yinclient.id)}>Remove</Badge></td></tr>
                                 )
                             })}
                         </tbody>

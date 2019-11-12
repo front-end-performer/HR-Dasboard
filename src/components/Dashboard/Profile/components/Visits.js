@@ -1,20 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect }  from 'react';
 import { Card, CardBody, Col } from 'reactstrap';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { totalUsers } from '../../../../actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { totalUsers } from '../../../../actions';
 
-const Visits = ({ total }) => {
-    // const dispatch = useDispatch();
-    // const total = useSelector(
-    //     state => state.users && state.users.length
-    // );
+const Visits = () => {
+    const dispatch = useDispatch();
+    const total = useSelector(
+        state => state.data && state.data.length
+    );
+    
 
-    // useEffect(() => {
-    //     dispatch(totalUsers());
-    // }, []);
+    useEffect(() => {
+        dispatch(totalUsers());
+    }, []);
 
     return (
-        <Col md={12} xl={3} lg={3} xs={12}>
+        <Col md={12} xl={2} lg={2} xs={12}>
             <Card>
                 <CardBody className="dashboard__card-widget">
                     <div className="card__title">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card, CardBody, Col, Badge, Table } from 'reactstrap';
 import { totalUsers } from '../../../../actions';
 import { Link } from 'react-router-dom';
@@ -8,15 +8,18 @@ import axios from '../../../../axios';
 const Clients = () => {
     const [data, setData] = useState('');
     const dispatch = useDispatch();
+    const clientsTotal = useSelector(
+        state => state.data
+    );
 
-    useEffect(() => {
-        (async () => {
-            const { data } = await axios.get('/total-clients');
-            setData(
-                data
-            );
-        })();
-    }, [data])
+    // useEffect(() => {
+    //     (async () => {
+    //         const { data } = await axios.get('/total-clients');
+    //         setData(
+    //             data
+    //         );
+    //     })();
+    // }, [])
 
     useEffect(() => {
         dispatch(totalUsers());
@@ -30,34 +33,43 @@ const Clients = () => {
         })
     }
 
-    if (!data) {
+    if (!clientsTotal) {
         return null;
     }
 
     return (
         < Col md={12} lg={12} xl={12} style={{ padding: 0 }}>
             <Card>
-                <CardBody style={{height: 500, overflowY: 'scroll'}}>
+                <CardBody style={{ height: 500, overflowY: 'scroll' }}>
                     <Table responsive hover>
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Gender</th>
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Contract expiration</th>
+                                <th>Address</th>
+                                <th>Package</th>
+                                <th>DOB</th>
                                 <th>Status</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody style={{ overflowY: 'scroll', height: 500 }}>
-                            {data.map((emploee, index) => {
-                                return (<tr key={emploee.id}>
-                                            <td>{index + 1}</td>
-                                            <td>{emploee.first} {emploee.last}</td>
-                                    <td><Link to={`/user/${emploee.id}`}>{emploee.last}</Link></td>
-                                            <td>{emploee.last}</td>
-                                            <td>{emploee.email}</td>
-                                    <td><Badge color="success" onClick={() => handleDelete(emploee.id)}>Remove client</Badge></td></tr>
+                            {clientsTotal.map((client, index) => {
+                                return (<tr key={client.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{client.gender}</td>
+                                    <td><Link to={`/user/${client.id}`}>{client.first} {client.last}</Link></td>
+                                    <td>{client.email}</td>
+                                    <td>{client.phone}</td>
+                                    <td>{client.address}</td>
+                                    <td>{client.package}</td>
+                                    <td>{client.dob}</td>
+                                    <td><Badge color="danger" onClick={() => handleDelete(client.id)}>Remove client</Badge></td>
+                                    <td>{client.time_stamp}</td>
+                                </tr>
                                 )
                             })}
                         </tbody>

@@ -112,20 +112,24 @@ app.post('/register', (req, res) => {
     if (select) {
         getByEmailClient(email).then(({ rows }) => {
             let [first, last, email, imgurl] = [rows[0].first, rows[0].last, rows[0].email, rows[0].imgurl];
-            
+
             if (select === 'pilates') {
-                insertIntoPilates(first, last, email, imgurl, select);
-            } else if (select === 'yoga') { 
-                insertYoga(first, last, email, imgurl, select);
+                insertIntoPilates(first, last, email, imgurl, select).then(({ rows }) => { 
+                    res.json(rows);
+                });
+            } else if (select === 'yoga') {
+                insertYoga(first, last, email, imgurl, select).then(({ rows }) => { 
+                    res.json(rows);
+                });
             }
-        }).catch(error => { 
-            console.log(error);
+        }).catch(error => {
+            console.log(error.message);
             res.statusCode(500);
         })
-    } else { 
+    } else {
         res.render('register', { error: true });
     }
-    
+
 });
 
 // app.post('/register', (req, res) => {
@@ -151,24 +155,16 @@ app.post('/register', (req, res) => {
 // });
 
 app.post('/register-newuser', (req, res) => {
-    let { first, last, email, password } = req.body;
-    console.log("req.body==>", first, last, email, password);
+    let { gender, first, last, email, phone, dob, address, package, bio } = req.body;
+    console.log("req.body==>", gender, first, last, email, phone, dob, address, package, bio);
 
-    if (first != '' && last != '' && email != '' && password != '') {
-        hash(password).then(result => {
-            password = result;
-            insertNewUser(first, last, email, password).then(result => {
-                // console.log("insertUsersresult", result);
-                // let id = result.rows[0].id;
-                // req.session.userId = id;
-                // console.log("id", id);
-                // console.log("req.session.userId", req.session.userId);
-                totalUsers().then(({ rows }) => {
-                    res.json(rows);
-                })
-                // res.redirect('/');
-            }).catch(error => console.log("insertUser error", error));
-        }).catch(error => console.log("hash error:", error.message));
+    if (first != '' && last != '' && email != '') {
+        insertNewUser(gender, first, last, email, phone, dob, address, package, bio).then(result => {
+            totalUsers().then(({ rows }) => {
+                res.json(rows);
+            })
+            // res.redirect('/');
+        }).catch(error => console.log("insertUser error", error));
     } else {
         return res.render('register-newuser', { error: true });
     }
@@ -289,6 +285,7 @@ app.post('/delete-client/:id', async (req, res) => {
 
 app.get('/pilates-customers', async (req, res) => {
     const { rows } = await getPilatesCustomers();
+
     res.json(rows);
 })
 

@@ -4,12 +4,12 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Manager from './Manager';
 import Profile from './Profile/Profile';
 import ProfileImg from './Profile/ProfileImg/ProfileImg';
-import BioEditor from './Profile/BioEditor/BioEditor';
+// import BioEditor from './Profile/BioEditor/BioEditor';
 import Uploader from './Uploader/Uploader';
 import Header from '../Dashboard/Header/Header';
 import OtherProfile from './OtherProfile/OtherProfile';
-import FindPeople from '../Dashboard/FindPeople/FindPeople';
-import Friends from './Friends/Friends';
+// import FindPeople from '../Dashboard/FindPeople/FindPeople';
+// import Friends from './Friends/Friends';
 import ChatRoom from './Chat/ChatRoom/ChatRoom';
 
 
@@ -109,12 +109,12 @@ class Dashboard extends Component {
                                             click={() => this.showUploader()}
                                         />
                                     }
-                                    bioEditor={
-                                        <BioEditor
-                                            bio={bio}
-                                            setBio={(e) => this.setBio(e)}
-                                        />
-                                    }
+                                    // bioEditor={
+                                    //     <BioEditor
+                                    //         bio={bio}
+                                    //         setBio={(e) => this.setBio(e)}
+                                    //     />
+                                    // }
                                 />
                         } />
 
@@ -130,7 +130,7 @@ class Dashboard extends Component {
                             )}
                         />
 
-                        <Route
+                        {/* <Route
                             path="/find_people"
                             render={props => (
                                 <FindPeople
@@ -140,8 +140,8 @@ class Dashboard extends Component {
                                     userId={userId}
                                 />
                             )}
-                        />
-                        <Route
+                        /> */}
+                        {/* <Route
                             path="/friends"
                             render={props => (
                                 <Friends
@@ -151,7 +151,7 @@ class Dashboard extends Component {
                                     userId={userId}
                                 />
                             )}
-                        />
+                        /> */}
                         {/* <Route path="/chat" component={Chat}/> */}
                         <Route
                             path="/chat"
@@ -166,7 +166,7 @@ class Dashboard extends Component {
                     </div>
                 </BrowserRouter>
 
-                {uploaderIsVisiable && <Uploader bgClick={() => this.showUploader()} updateImg={(e) => this.updateImg(e)} />}
+                {/* {uploaderIsVisiable && <Uploader bgClick={() => this.showUploader()} updateImg={(e) => this.updateImg(e)} />} */}
             </div>
         );
     }

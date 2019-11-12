@@ -5,6 +5,10 @@ import { FaCheck } from "react-icons/fa";
 import { Pie } from 'react-chartjs-2';
 
 const data = {
+    labels: [
+        'Pilates',
+        'Yoga',
+    ],
     datasets: [{
         data: [300, 50],
         backgroundColor: [
@@ -23,7 +27,7 @@ const DevelopmentStatusCard = () => {
     const [activeIndex, setActiveIndex] = useState(true);
 
     return (
-        <Col md={12} xl={2} lg={3} xs={12}>
+        <Col md={12} xl={4} lg={4} xs={12}>
             <Card>
                 <CardBody className="dashboard__card-widget">
                     <div className="card__title">

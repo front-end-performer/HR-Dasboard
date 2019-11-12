@@ -65,12 +65,55 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
         };
     }
 
-    if (action.type === 'TOTAL_CLIENTS' || action.type === 'REGISTER_USERS') {
+    if (action.type === 'TOTAL_CLIENTS') {
+        state = {
+            ...state,
+            data: action.users
+        };
+    }
+
+    if (action.type === 'REGISTER_USERS') {
         state = {
             ...state,
             users: action.users
         };
     }
+
+    if (action.type === 'PILATES_USERS') { 
+        state = {
+            ...state,
+            pilates_users: action.data
+        }
+    }
+
+      if (action.type === 'REMOVE_USER') { 
+        state = {
+            ...state,
+            data: action.id
+        }
+    }
+
+    if (action.type === 'YOGA_USERS') { 
+        state = {
+            ...state,
+            yoga_users: action.yoga_users
+        }
+    }
+
+    if (action.type === 'REMOVEYOGA_USERS') { 
+        state = {
+            ...state,
+            data: action.id
+        }
+    }
+
+    // if (action.type === 'SIGNUP_FOR_CLASS') { 
+    //     console.log("action", action.type);
+    //     state = {
+    //         ...state,
+    //         sign: action.data
+    //     }
+    // }
 
     return state;
 };
