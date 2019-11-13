@@ -8,9 +8,11 @@ import ProfileImg from './Profile/ProfileImg/ProfileImg';
 import Uploader from './Uploader/Uploader';
 import Header from '../Dashboard/Header/Header';
 import OtherProfile from './OtherProfile/OtherProfile';
-// import FindPeople from '../Dashboard/FindPeople/FindPeople';
+import PilatesProfile from './PilatesProfile/PilatesProfile';
+import FindPeople from '../Dashboard/FindPeople/FindPeople';
 // import Friends from './Friends/Friends';
 import ChatRoom from './Chat/ChatRoom/ChatRoom';
+import YogaProfile from './YogaProfile/YogaProfile';
 
 
 class Dashboard extends Component {
@@ -100,6 +102,7 @@ class Dashboard extends Component {
                                     id={this.state.id}
                                     firstName={firstName}
                                     lastName={lastName}
+                                    bio={bio}
                                     click={this.logOutHandler}
                                     profilePic={
                                         <ProfileImg
@@ -109,12 +112,12 @@ class Dashboard extends Component {
                                             click={() => this.showUploader()}
                                         />
                                     }
-                                    // bioEditor={
-                                    //     <BioEditor
-                                    //         bio={bio}
-                                    //         setBio={(e) => this.setBio(e)}
-                                    //     />
-                                    // }
+                                // bioEditor={
+                                //     <BioEditor
+                                //         bio={bio}
+                                //         setBio={(e) => this.setBio(e)}
+                                //     />
+                                // }
                                 />
                         } />
 
@@ -130,7 +133,32 @@ class Dashboard extends Component {
                             )}
                         />
 
-                        {/* <Route
+                        <Route
+                            path="/pilates_user/:id"
+                            render={props => (
+                                <PilatesProfile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    userId={userId}
+                                    bio={bio}
+                                />
+                            )}
+                        />
+
+                        <Route
+                            path="/yoga_user/:id"
+                            render={props => (
+                                <YogaProfile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                    userId={userId}
+                                />
+                            )}
+                        />
+
+                        <Route
                             path="/find_people"
                             render={props => (
                                 <FindPeople
@@ -140,7 +168,7 @@ class Dashboard extends Component {
                                     userId={userId}
                                 />
                             )}
-                        /> */}
+                        />
                         {/* <Route
                             path="/friends"
                             render={props => (
@@ -166,7 +194,7 @@ class Dashboard extends Component {
                     </div>
                 </BrowserRouter>
 
-                {/* {uploaderIsVisiable && <Uploader bgClick={() => this.showUploader()} updateImg={(e) => this.updateImg(e)} />} */}
+                {uploaderIsVisiable && <Uploader bgClick={() => this.showUploader()} updateImg={(e) => this.updateImg(e)} />}
             </div>
         );
     }

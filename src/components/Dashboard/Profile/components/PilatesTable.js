@@ -12,11 +12,11 @@ const PilatesTable = () => {
         state => state.pilates_users
     );
 
-    console.log("pilates_users", pilatesUsers);
-    
-    
+    // console.log("pilatesUsers clients side ===>", pilatesUsers);
+
+
     useEffect(() => {
-       dispatch(totalPilatesUsers());
+        dispatch(totalPilatesUsers());
     }, [data])
 
     const handleDelete = (id) => {
@@ -39,6 +39,7 @@ const PilatesTable = () => {
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Avatar</th>
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
@@ -49,7 +50,8 @@ const PilatesTable = () => {
                             {pilatesUsers.map((pilatesclient, index) => {
                                 return (<tr key={pilatesclient.id}>
                                     <td>{index + 1}</td>
-                                    <td><Link to={`/user/${pilatesclient.id}`}>{pilatesclient.first} {pilatesclient.last}</Link></td>
+                                    <td><img style={{width: 20}} src={pilatesclient.imgurl} /></td>
+                                    <td><Link to={`/pilates_user/${pilatesclient.id}`}>{pilatesclient.first} {pilatesclient.last}</Link></td>
                                     <td>{pilatesclient.email}</td>
                                     <td>{pilatesclient.phone}</td>
                                     <td><Badge color="danger" onClick={() => handleDelete(pilatesclient.id)}>Remove</Badge></td></tr>

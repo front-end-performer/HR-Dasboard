@@ -33,7 +33,7 @@ const FindPeople = () => {
 
     return (
         <section className="profile__container">
-            <h1 className="findPeople__title">Find <span className="color_dark">People</span></h1>
+            <h1 className="findPeople__title"><span style={{backgroundColor: 'rgba(255,255,255, 0.7)'}} className="color_dark">Members</span></h1>
             <div className="user__result-container">
                 <input className="find_people-input" name="search" type='text' onChange={e => setUserInput(e.target.value)} />
                 <div className="user__result-box">
@@ -49,7 +49,6 @@ const FindPeople = () => {
                                         />
                                         <h3 className="user__title">{`${user.first} ${user.last}`}</h3>
                                     </Link>
-                                    <img className="user__content-img" src="../assets/coriander_img.png" alt="coriander_img" />
                                 </div>
                             </Animated>
                         );

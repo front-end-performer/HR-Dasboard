@@ -60,7 +60,6 @@ class Uploader extends Component {
             <React.Fragment>
                 <Animated className="animation-style" animationIn="rubberBand" isVisible={true}>
                     <div className="uploader_modal">
-                        <img className="uploader_img" src="../assets/coriander_img.png" alt="coriander_img" />
                         <h3>Upload your avatar!</h3>
                         <input className="file-input" type="file" name="file" onChange={(event) => this.onChangeHandler(event)} />
                         <button

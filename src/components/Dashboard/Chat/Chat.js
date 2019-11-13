@@ -18,11 +18,13 @@ const Chat = () => {
         playing ? audio.play() : audio.pause();
         elemRef.current.scrollTop = elemRef.current.scrollHeight - elemRef.current.clientHeight;
     }, [chatMessages, playing]);
-    
+
     const keyCheck = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             console.log('key', e.key);
+            console.log("name", name);
+            
             socket.emit('chatMessage', name);
             socket.emit('chatMessageNotitification', name);
             toggle();
@@ -30,7 +32,7 @@ const Chat = () => {
         }
     };
 
-        
+
     const keyCheckOut = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();

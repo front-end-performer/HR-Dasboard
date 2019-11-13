@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from '../../axios'; // './axios' instance
 import { Animated } from "react-animated-css";
 import { HashRouter, Link } from 'react-router-dom';
-// import Chat from '../Dashboard/Chat/Chat';
 import { Button } from 'reactstrap';
 
 class Login extends Component {
@@ -43,9 +42,6 @@ class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                {/* <div style={{position: 'absolute'}}>
-                    <Chat />
-                </div> */}
                 <Animated animationIn="fadeIn" animationOut="fadeOut" isVisible={true}>
                     <h3 style={{ textAlign: "center" }}>Admin form.</h3>
                     <br />

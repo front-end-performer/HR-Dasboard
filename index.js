@@ -31,7 +31,10 @@ const {
     deleteUser,
     getByEmailClient,
     insertIntoPilates,
-    insertYoga
+    insertYoga,
+    getPilatesUserInfo,
+    getYogaUserInfo,
+    newClients
 } = require('./sql/db');
 const s3 = require('./s3');
 const { s3Url } = require('./config');
@@ -244,6 +247,28 @@ app.get('/api/user/:id', async (req, res) => {
     }
 });
 
+app.get('/pilatesUser/:id', async (req, res) => {
+    let { id } = req.params;
+    let { userId } = req.session;
+    if (userId != id) {
+        const { rows } = await getPilatesUserInfo(id);
+        res.json(rows[0]);
+    } else {
+        res.sendStatus(500);
+    }
+});
+
+app.get('/yogaUser/:id', async (req, res) => {
+    let { id } = req.params;
+    let { userId } = req.session;
+    if (userId != id) {
+        const { rows } = await getYogaUserInfo(id);
+        res.json(rows[0]);
+    } else {
+        res.sendStatus(500);
+    }
+});
+
 app.post('/upload', uploader.single('image'), s3.upload, (req, res) => {
     const { userId } = req.session;
     // before this i need to file in a bucket
@@ -277,6 +302,12 @@ app.get('/total-clients', async (req, res) => {
     res.json(rows);
 })
 
+app.get('/new-clients-per-day', async (req, res) => { 
+    const { rows } = await newClients();
+    console.log("new clients ==>", rows);
+    res.json(rows);
+});
+
 app.post('/delete-client/:id', async (req, res) => {
     let { id } = req.params;
     const { rows } = await deleteUser(id);
@@ -285,7 +316,8 @@ app.post('/delete-client/:id', async (req, res) => {
 
 app.get('/pilates-customers', async (req, res) => {
     const { rows } = await getPilatesCustomers();
-
+    console.log("pilates-cutomers server ==>", rows);
+    
     res.json(rows);
 })
 
@@ -410,7 +442,7 @@ io.on('connection', socket => {
     const getUnique = (users) => Array.from(new Set(Object.values(users)));
     const uniqueUsers = getUnique(onlineUsers);
 
-    console.log("uniquertwretwertwert==>>", uniqueUsers);
+    // console.log("uniquertwretwertwert==>>", uniqueUsers);
     io.sockets.emit('onlineUsers', uniqueUsers);
 
     /* we want to get 10 lats messages */
@@ -436,6 +468,7 @@ io.on('connection', socket => {
         });
     });
 
+
     socket.on('disconnect', () => {
         delete onlineUsers[socket.id];
 
@@ -447,29 +480,30 @@ io.on('connection', socket => {
 
 });
 
-
-
-// io.on('connection', (socket) => {
-//     console.log(`socket with the id ${socket.id} is now connected`);
-
-//     socket.emit('welcome', {
-//         message: 'Welome. It is nice to see you'
+// io.on('connection', socket => {
+//     console.log(`WELCOME socket with the id ${socket.id} is now connected`);
+    
+//     getLastTenMessages().then(({ rows }) => {
+//         io.sockets.emit('chatMessages', rows.reverse());
 //     });
 
-//     const { userId } = socket.request.session;
-//     onlineUsers[socket.id] = userId;
-
-//     socket.on('myChat', (data) => {
-//         console.log(data);
-//         socket.emit('hello', {
-//             data: 'looking good'
+//     socket.on('chatMessage', newMessage => {
+//         insertUsersMessages(userId, newMessage).then(() => {
+//             getNewMsg(userId).then(({ rows }) => {
+//                 io.sockets.emit('chatMessage', rows);
+//             });
 //         });
-
-//         socket.broadcast.emit('somebodyNew'); // sends to everybody message except one who logedin currently
 //     });
+
+//     socket.on('chatMessageNotitification', () => {
+//         getNewMsg(userId).then(({ rows }) => {
+//             io.sockets.emit('chatMessageNotitification', rows);
+//         });
+//     });
+
+
 //     socket.on('disconnect', () => {
-//         delete onlineUsers[userId.id];
-//         console.log(`socket with the id ${socket.id} is now disconnected`);
+//         console.log(`WELCOME socket with the id ${socket.id} is now disconnected`);
 //     });
 
 // });

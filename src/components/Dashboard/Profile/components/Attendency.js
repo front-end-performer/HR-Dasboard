@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 import { Card, CardBody, Col } from 'reactstrap';
 import { Doughnut } from 'react-chartjs-2';
 
-const getState = (x) => ({
+const getState = (x, y) => ({
     labels: [
-        'Red',
-        'Blue'
+        'Pilates',
+        'Yin Yoga'
     ],
     datasets: [{
-        data: [x, 150],
+        data: [x, y],
         backgroundColor: [
             '#FF6384',
             '#36A2EB'
@@ -30,16 +30,19 @@ const DynamiclyRefreshedDoughnut = () => {
     const [data, setData] = useState();
 
     const totalPilatesUsers = useSelector(
-        state => state.data && state.data.length
+        state => state.pilates_users && state.pilates_users.length
     );
+
+    // console.log("totalPilatesUsers", totalPilatesUsers);
 
     const totalYogaUser = useSelector(
-        state => state.data && state.data.length
+        state => state.yoga_users && state.yoga_users.length
     );
+    // console.log("totalYogaUser", totalYogaUser);
 
     useEffect(() => {
-        setData(getState(totalPilatesUsers));
-    }, [totalPilatesUsers]);
+        setData(getState(totalPilatesUsers, totalYogaUser));
+    }, [totalPilatesUsers, totalYogaUser]);
 
     if (!totalPilatesUsers) {
         return null;

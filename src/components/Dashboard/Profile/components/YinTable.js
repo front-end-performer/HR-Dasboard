@@ -12,7 +12,7 @@ const YinTable = () => {
         state => state.yoga_users
     );
 
-    console.log("yogaUsers", yogaUsers);
+    // console.log("yogaUsers", yogaUsers);
 
     useEffect(() => {
         dispatch(totalYogaUsers());
@@ -38,6 +38,7 @@ const YinTable = () => {
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Avatar</th>
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
@@ -48,7 +49,8 @@ const YinTable = () => {
                             {yogaUsers.map((yinclient, index) => {
                                 return (<tr key={yinclient.id}>
                                     <td>{index + 1}</td>
-                                    <td><Link to={`/user/${yinclient.id}`}>{yinclient.first} {yinclient.last}</Link></td>
+                                    <td><img style={{width: 20}} src={yinclient.imgurl} /></td>
+                                    <td><Link to={`/yoga_user/${yinclient.id}`}>{yinclient.first} {yinclient.last}</Link></td>
                                     <td>{yinclient.email}</td>
                                     <td>{yinclient.phone}</td>
                                     <td><Badge color="danger" onClick={() => handleDelete(yinclient.id)}>Remove</Badge></td></tr>

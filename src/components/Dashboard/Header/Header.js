@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaEnvelope, FaBell, FaHome } from "react-icons/fa";
+import { FaEnvelope, FaBell, FaHome, FaUserFriends } from "react-icons/fa";
 import {
     Collapse,
     Navbar,
@@ -49,6 +49,11 @@ const Header = ({ profilePic, click, clickUploader, firstName, lastName, id }) =
                         <NavItem className="navigation__item">
                             <NavLink href="/">
                                 <FaHome />
+                            </NavLink>
+                        </NavItem>
+                        <NavItem className="navigation__item">
+                            <NavLink href="/find_people">
+                                <FaUserFriends />
                             </NavLink>
                         </NavItem>
                         <NavItem className="navigation__item">

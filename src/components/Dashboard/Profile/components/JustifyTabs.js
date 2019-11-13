@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Col, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
-import axios from '../../../../axios';
+// import axios from '../../../../axios';
 import classnames from 'classnames';
 import VerticalTabs from './VerticalTabs';
 import RegisterNewClient from './RegisterNewClient';
 import Clients from './Clients';
+import CalendarContainer from './Calendar';
 
 const JustifyTabs = () => {
-    const [activeTab, setActiveTab] = useState('1'); 
+    const [activeTab, setActiveTab] = useState('1');
 
     const toggle = (tab) => {
         if (activeTab !== tab) {
@@ -27,7 +28,7 @@ const JustifyTabs = () => {
                                 <NavItem>
                                     <NavLink
                                         className={classnames({ active: activeTab === '1' })}
-                                        onClick={() => 
+                                        onClick={() =>
                                             toggle('1')
                                         }
                                     >
@@ -37,7 +38,7 @@ const JustifyTabs = () => {
                                 <NavItem>
                                     <NavLink
                                         className={classnames({ active: activeTab === '2' })}
-                                        onClick={() => 
+                                        onClick={() =>
                                             toggle('2')
                                         }
                                     >
@@ -47,17 +48,17 @@ const JustifyTabs = () => {
                                 <NavItem>
                                     <NavLink
                                         className={classnames({ active: activeTab === '3' })}
-                                        onClick={() => 
+                                        onClick={() =>
                                             toggle('3')
                                         }
                                     >
-                                        Statistics
+                                        Calendar
                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink
                                         className={classnames({ active: activeTab === '4' })}
-                                        onClick={() => 
+                                        onClick={() =>
                                             toggle('4')
                                         }
                                     >
@@ -73,9 +74,7 @@ const JustifyTabs = () => {
                                     <RegisterNewClient />
                                 </TabPane>
                                 <TabPane tabId="3">
-                                    <p>Direction has strangers now believing. Respect enjoyed gay far exposed parlors towards. Enjoyment
-                                      use tolerably dependent listening men. No peculiar in handsome together unlocked do by.
-                                        </p>
+                                    <CalendarContainer />
                                 </TabPane>
                                 <TabPane tabId="4">
                                     <Clients />

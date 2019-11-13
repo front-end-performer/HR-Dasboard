@@ -26,7 +26,7 @@ class JustifyTabsBorderedBottom extends Component {
         return (
             <Col md={12} lg={12} xl={12} style={{ padding: 0 }}>
                 <Card>
-                    <CardBody>
+                    <CardBody style={{height: 400, overflowY: 'scroll'}}>
                         <div className="tabs tabs--justify tabs--bordered-bottom">
                             <div className="tabs__wrap">
                                 <Nav tabs>

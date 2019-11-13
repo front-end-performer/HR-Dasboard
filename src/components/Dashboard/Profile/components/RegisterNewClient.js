@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from '../../../../axios';
-import { totalUsers } from '../../../../actions';
+import { totalUsers, newClients } from '../../../../actions';
 import { Card, CardBody, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 const RegisterNewClient = () => {
-    const [data, setData] = useState();
+    // const [data, setData] = useState();
     const [values, handleChange] = useStatefulFields();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        axios.get('/total-clients').then(({ data }) => {
-            setData({
-                data: data
-            });
-        });
-    }, []);
+    // useEffect(() => {
+    //     axios.get('/total-clients').then(({ data }) => {
+    //         setData({
+    //             data: data
+    //         });
+    //     });
+    // }, []);
 
     function useStatefulFields() {
         const [values, setValues] = useState({});
@@ -33,12 +33,10 @@ const RegisterNewClient = () => {
         axios.post('/register-newuser', values).then(() => {
             // location.replace('/');
             dispatch(totalUsers());
-            setValues('');
+            dispatch(newClients());
+            handleChange('');
         }).catch(error => {
             console.log("register submit error", error);
-            this.setState({
-                error: true
-            });
         });
     }
 
@@ -54,7 +52,7 @@ const RegisterNewClient = () => {
                                     <option>Select</option>
                                     <option>Male</option>
                                     <option>Female</option>
-                                    <option>Other</option>
+                                    <option>Fitness Animal 'Grrrr'</option>
                                 </Input>
                             </Col>
                         </FormGroup>

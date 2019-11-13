@@ -514,6 +514,10 @@ textarea {
 	position: relative;
 }
 
+.react-calendar {
+    width: 100%!important;
+}
+
 .new2__box {
 	color: #37474f;
 	z-index: 1;
@@ -538,8 +542,8 @@ textarea {
 .findPeople__title {
 	color: #fff;
 	text-align: center;
-	font-weight: 400;
-	padding: 40px 0;
+    font-weight: 400;
+    padding: 40px 0;
 }
 
 .user__result-container {

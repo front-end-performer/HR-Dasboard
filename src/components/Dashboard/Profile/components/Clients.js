@@ -45,7 +45,7 @@ const Clients = () => {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Gender</th>
+                                <th>Avatar</th>
                                 <th>Full name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
@@ -60,7 +60,7 @@ const Clients = () => {
                             {clientsTotal.map((client, index) => {
                                 return (<tr key={client.id}>
                                     <td>{index + 1}</td>
-                                    <td>{client.gender}</td>
+                                    <td><img style={{width: 20}} src={client.imgurl} /></td>
                                     <td><Link to={`/user/${client.id}`}>{client.first} {client.last}</Link></td>
                                     <td>{client.email}</td>
                                     <td>{client.phone}</td>

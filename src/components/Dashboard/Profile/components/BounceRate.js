@@ -27,11 +27,11 @@ class TimeDate extends Component {
                 <Card>
                     <CardBody className="dashboard__card-widget">
                         <div className="card__title">
-                            <h5 className="bold-text">Today's Date</h5>
+                            <h5 className="bold-text">Today's Date and Time</h5>
                         </div>
                         <div className="dashboard__total">
-                            <p className='dashboard__total-stat'>{this.state.date}</p>
-                            <p>{this.state.time}</p>
+                            <h5 className='dashboard__total-stat'>{this.state.date}</h5>
+                            <h5>{this.state.time}</h5>
                         </div>
                     </CardBody>
                 </Card>

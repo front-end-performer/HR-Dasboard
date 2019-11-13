@@ -41,6 +41,26 @@ module.exports.getUserInfo = (id) => {
     });
 };
 
+module.exports.getPilatesUserInfo = (id) => {
+    return db.query(
+        `SELECT * FROM pilatesusers
+        WHERE pilatesusers.id = $1`,
+        [id]
+    ).catch(error => {
+        console.log("getPilatesUserInfo by id query ==>", error.message);
+    });
+};
+
+module.exports.getYogaUserInfo = (id) => {
+    return db.query(
+        `SELECT * FROM yinusers
+        WHERE yinusers.id = $1`,
+        [id]
+    ).catch(error => {
+        console.log("getYogaUserInfo by id query ==>", error.message);
+    });
+};
+
 module.exports.updateImgUrl = (imgUrl, id) => {
     return db.query(
         `UPDATE users SET imgUrl = $1
@@ -256,7 +276,7 @@ module.exports.insertIntoPilates = (first, last, email, imgurl, selection) => {
     return db.query(
         `INSERT INTO pilatesusers (first, last, email, imgurl, selection)
         VALUES ($1, $2, $3, $4, $5)
-        RETURNING id`,
+        RETURNING id, first, last, email`,
         [first, last, email, imgurl, selection]
     ).catch(error => {
         console.log("insertIntoPilates by id query ==>", error.message);
@@ -274,4 +294,13 @@ module.exports.insertYoga = (first, last, email, imgurl, selection) => {
     });;
 };
 
+module.exports.newClients = () => {
+    return db.query(
+        `SELECT *
+        FROM users     
+        WHERE time_stamp >= NOW() - interval '24 hour'`
+    ).catch(error => {
+        console.log("newClients by id query ==>", error.message);
+    });;
+};
 
