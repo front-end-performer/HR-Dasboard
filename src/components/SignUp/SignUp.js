@@ -4,7 +4,7 @@ import { HashRouter, Link } from 'react-router-dom';
 import { signUp, totalPilatesUsers, register } from '../../actions';
 import { Animated } from "react-animated-css";
 // import { socket } from '../../socket';
-import Chat from '../Dashboard/Chat/Chat';
+// import Chat from '../Dashboard/Chat/Chat';
 import { Button } from 'reactstrap';
 
 const SignUpForClass = () => {
@@ -16,15 +16,12 @@ const SignUpForClass = () => {
         state => state.pilates_users
     );
 
-    console.log("signUpForClasses", signUpForClasses);
+    // console.log("signUpForClasses", signUpForClasses);
     
 
-    // useEffect(() => { 
-    //     if (signUpForClasses) {
-            
-    //         dispatch(totalPilatesUsers());
-    //     }
-    // }, []);
+    useEffect(() => { 
+            dispatch(totalPilatesUsers());
+    }, [signUpForClasses]);
 
     // console.log("signUpForClasses", signUpForClasses);
 
@@ -42,9 +39,9 @@ const SignUpForClass = () => {
 
     return (
         <Animated animationIn="fadeIn" animationOut="fadeOut" isVisible={true}>
-            <div style={{ position: 'absolute', top: '15%', width: 200, height: 500, left: '20%', transform: 'translate(-50%, -20%)' }}>
+            {/* <div style={{ position: 'absolute', top: '15%', width: 200, height: 500, left: '20%', transform: 'translate(-50%, -20%)' }}>
                 <Chat />
-            </div>
+            </div> */}
             <h3 style={{ textAlign: "center" }}>Signup for a class, now.</h3>
             <br />
             <div className="form">

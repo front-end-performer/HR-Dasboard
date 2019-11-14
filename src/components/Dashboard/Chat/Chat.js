@@ -10,6 +10,8 @@ const Chat = () => {
     const chatMessages = useSelector(
         state => state && state.msgs
     );
+    console.log(chatMessages);
+    
 
     const toggle = () => setPlaying(!playing);
 

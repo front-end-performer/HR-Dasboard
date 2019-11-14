@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS notes;
+
+CREATE TABLE notes(
+    id SERIAL PRIMARY KEY,
+    note VARCHAR(300),
+    time_stamp TIMESTAMP NOT NULL DEFAULT NOW()
+);

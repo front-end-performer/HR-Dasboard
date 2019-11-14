@@ -22,7 +22,7 @@ const Visits = () => {
                         <h5 className="bold-text">Total members</h5>
                     </div>
                     <div className="dashboard__total">
-                        <h5 style={{ paddingTop: 10, marginBottom: 0, width: '100 %' }}>
+                        <h5>
                             {total}
                         </h5>
                     </div>

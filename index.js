@@ -34,7 +34,11 @@ const {
     insertYoga,
     getPilatesUserInfo,
     getYogaUserInfo,
-    newClients
+    newClients,
+    lastMonth,
+    getNotes,
+    addNotes,
+    deleteNotes
 } = require('./sql/db');
 const s3 = require('./s3');
 const { s3Url } = require('./config');
@@ -118,6 +122,7 @@ app.post('/register', (req, res) => {
 
             if (select === 'pilates') {
                 insertIntoPilates(first, last, email, imgurl, select).then(({ rows }) => { 
+                    console.log("insertinto", rows);
                     res.json(rows);
                 });
             } else if (select === 'yoga') {
@@ -135,28 +140,6 @@ app.post('/register', (req, res) => {
 
 });
 
-// app.post('/register', (req, res) => {
-//     let { first, last, email, password } = req.body;
-//     console.log("req.body==>", first, last, email, password);
-
-//     if (first != '' && last != '' && email != '' && password != '') {
-//         hash(password).then(result => {
-//             password = result;
-//             insertUsers(first, last, email, password).then(result => {
-//                 // console.log("insertUsersresult", result);
-//                 let id = result.rows[0].id;
-//                 req.session.userId = id;
-//                 // console.log("id", id);
-//                 // console.log("req.session.userId", req.session.userId);
-
-//                 res.redirect('/');
-//             }).catch(error => console.log("insertUser error", error));
-//         }).catch(error => console.log("hash error:", error.message));
-//     } else {
-//         return res.render('register', { error: true });
-//     }
-// });
-
 app.post('/register-newuser', (req, res) => {
     let { gender, first, last, email, phone, dob, address, package, bio } = req.body;
     console.log("req.body==>", gender, first, last, email, phone, dob, address, package, bio);
@@ -172,36 +155,6 @@ app.post('/register-newuser', (req, res) => {
         return res.render('register-newuser', { error: true });
     }
 });
-
-// app.post('/pilates-class', (req, res) => {
-//     let { email, select } = req.body;
-
-//     //getting users hashed password by email from db
-//     getByEmailClient(email).then(({ rows }) => {
-
-//         console.log("getEmailByClient server==>", rows);
-//         res.json(rows);
-//         // comparing types password with hashed password
-//         // getCheckPassword(password, hashPassword).then(isMatch => {
-//         //     if (isMatch) {
-//         //         req.session.userId = result.rows[0].id;
-//         //         // console.log("req.session.userId)", req.session.userId);
-//         //         res.redirect('/dashboard');
-//         //     } else {
-//         //         // console.log("isMatch", isMatch);
-//         //         res.sendStatus(500);
-//         //     }
-//         // }).catch(error => {
-//         //     console.log("getCheckedByPassword", error);
-//         //     res.sendStatus(500);
-//         // });
-//     }).catch(error => {
-//         console.log("getByEmailClient error", error.message);
-//         res.sendStatus(500);
-//     });
-// });
-
-
 
 
 app.post('/login', (req, res) => {
@@ -292,9 +245,35 @@ app.post('/bio', (req, res) => {
     console.log("userId bio++>", userId);
     console.log("userId bio++>", textAreaValue);
     updateUsersBio(textAreaValue, userId).then(({ rows }) => {
-        console.log(rows);
+        // console.log(rows);
         res.json(rows);
     });
+});
+
+app.get('/all-notes', async (req, res) => {
+    const { rows } = await getNotes();
+    res.json(rows);
+});
+
+app.post('/notes', (req, res) => {
+    let { value } = req.body;
+
+    // let { userId } = req.session;
+    // console.log("userId bio++>", userId);
+    console.log("textarea serveer side body req++>", value);
+    addNotes(value).then(({ rows }) => {
+        console.log("textAreaValue", rows);
+        res.json(rows);
+    });
+});
+
+app.post('/delete-notes/:id', async (req, res) => {
+    let { id } = req.params;
+    console.log("dleet notes",  id);
+    const { rows } = await deleteNotes(id);
+    console.log("delete rows", rows);
+    
+    res.json(rows);
 });
 
 app.get('/total-clients', async (req, res) => {
@@ -304,7 +283,13 @@ app.get('/total-clients', async (req, res) => {
 
 app.get('/new-clients-per-day', async (req, res) => { 
     const { rows } = await newClients();
-    console.log("new clients ==>", rows);
+    // console.log("new clients ==>", rows);
+    res.json(rows);
+});
+
+app.get('/last-month-clients', async (req, res) => { 
+    const { rows } = await lastMonth();
+    // console.log("last month clients ==>", rows);
     res.json(rows);
 });
 
@@ -316,7 +301,7 @@ app.post('/delete-client/:id', async (req, res) => {
 
 app.get('/pilates-customers', async (req, res) => {
     const { rows } = await getPilatesCustomers();
-    console.log("pilates-cutomers server ==>", rows);
+    // console.log("pilates-cutomers server ==>", rows);
     
     res.json(rows);
 })

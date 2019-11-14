@@ -86,10 +86,11 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
         }
     }
 
-    // if (action.type === 'SIGNUP_FOR_CLASS') {        
+    // if (action.type === 'SIGNUP_FOR_CLASS') {  
+    //     console.log("SIGNUP_FOR_CLASS", action.signPilatesUsers);
     //     state = {
     //         ...state,
-    //         signPilatesUsers:  action.signPilatesUsers
+    //         pilates_users:  [...state.pilates_users, action.signPilatesUsers]
     //     }
     // }
 
@@ -115,10 +116,42 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type === 'TODAYS_CLIENTS') { 
-        console.log("action", action.type);
+        // console.log("action", action.type);
         state = {
             ...state, 
             client: action.client
+        }
+    }
+
+    if (action.type === 'LASTMONTH_CLIENTS') { 
+        // console.log("action", action.type);
+        state = {
+            ...state, 
+            prevClient: action.prevClient
+        }
+    }
+    
+    if (action.type === 'GET_NOTES_DATA') { 
+        console.log("action ALL_NOTES_DATA", action.type);
+        state = {
+            ...state, 
+            getNotes: action.allNotes
+        }
+    }
+
+    if (action.type === 'ADD_NOTES_DATA') { 
+        console.log("action NOTES_DATA", action.type);
+        state = {
+            ...state, 
+            getNotes: [...state.getNotes, action.notes]
+        }
+    }
+
+    if (action.type === 'DELETE_NOTES_DATA') { 
+        console.log("action DELETE_NOTES_DATA", action.type);
+        state = {
+            ...state, 
+            getNotes: action.deleteNotes
         }
     }
 

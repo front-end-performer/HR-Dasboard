@@ -33,12 +33,9 @@ const DynamiclyRefreshedDoughnut = () => {
         state => state.pilates_users && state.pilates_users.length
     );
 
-    // console.log("totalPilatesUsers", totalPilatesUsers);
-
     const totalYogaUser = useSelector(
         state => state.yoga_users && state.yoga_users.length
     );
-    // console.log("totalYogaUser", totalYogaUser);
 
     useEffect(() => {
         setData(getState(totalPilatesUsers, totalYogaUser));
@@ -53,11 +50,9 @@ const DynamiclyRefreshedDoughnut = () => {
             <Card>
                 <CardBody className="dashboard__card-widget">
                     <div className="card__title">
-                        <h5 className="bold-text">Today's attendancy</h5>
+                        <h5 className="bold-text">Today's attendance</h5>
                     </div>
-                    {/* <div className="dashboard__total"> */}
                     <Doughnut data={data} />
-                    {/* </div> */}
                 </CardBody>
             </Card>
         </Col>

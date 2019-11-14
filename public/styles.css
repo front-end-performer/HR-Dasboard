@@ -546,6 +546,18 @@ textarea {
     padding: 40px 0;
 }
 
+.notes_conatiner {
+    padding-top: 40px;
+}
+
+.react-clock {
+    margin: 0 auto!important;
+}
+
+.alert p {
+    margin-bottom: 0;
+}
+
 .user__result-container {
 	width: 100%;
 	max-height: 100%;

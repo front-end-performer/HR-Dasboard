@@ -5,17 +5,8 @@ import { totalUsers, newClients } from '../../../../actions';
 import { Card, CardBody, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 const RegisterNewClient = () => {
-    // const [data, setData] = useState();
     const [values, handleChange] = useStatefulFields();
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     axios.get('/total-clients').then(({ data }) => {
-    //         setData({
-    //             data: data
-    //         });
-    //     });
-    // }, []);
 
     function useStatefulFields() {
         const [values, setValues] = useState({});
@@ -34,7 +25,6 @@ const RegisterNewClient = () => {
             // location.replace('/');
             dispatch(totalUsers());
             dispatch(newClients());
-            handleChange('');
         }).catch(error => {
             console.log("register submit error", error);
         });

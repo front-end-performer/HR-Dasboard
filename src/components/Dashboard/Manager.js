@@ -2,9 +2,8 @@ import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
 import Visits from './Profile/components/Visits';
 import Attendency from './Profile/components/Attendency';
-// import Design from './Profile/components/Design';
 import DevelopmentStatusCard from './Profile/components/DevelopmentStatusCard';
-import BounceRate from './Profile/components/BounceRate';
+import TimeDate from './Profile/components/TimeDate';
 import JustifyTabs from './Profile/components/JustifyTabs';
 import ChatRoom from './Profile/components/ChatRoom';
 
@@ -14,9 +13,8 @@ const Manager = () => {
             <Row>
                 <Visits />
                 <Attendency />
-                {/* <Design /> */}
                 <DevelopmentStatusCard />
-                <BounceRate />
+                <TimeDate />
             </Row>
             <Row>
                 <Col md={12}>

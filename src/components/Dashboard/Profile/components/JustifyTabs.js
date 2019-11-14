@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import VerticalTabs from './VerticalTabs';
 import RegisterNewClient from './RegisterNewClient';
 import Clients from './Clients';
-import CalendarContainer from './Calendar';
+import Notes from './Notes';
 
 const JustifyTabs = () => {
     const [activeTab, setActiveTab] = useState('1');
@@ -52,7 +52,7 @@ const JustifyTabs = () => {
                                             toggle('3')
                                         }
                                     >
-                                        Calendar
+                                        Notes
                     </NavLink>
                                 </NavItem>
                                 <NavItem>
@@ -74,7 +74,7 @@ const JustifyTabs = () => {
                                     <RegisterNewClient />
                                 </TabPane>
                                 <TabPane tabId="3">
-                                    <CalendarContainer />
+                                    <Notes />
                                 </TabPane>
                                 <TabPane tabId="4">
                                     <Clients />

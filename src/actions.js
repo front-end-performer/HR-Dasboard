@@ -68,7 +68,7 @@ export async function totalUsers() {
 
 export async function totalPilatesUsers() {
     const { data } = await axios.get('/pilates-customers');
-    console.log("totalpilates users", data);
+    // console.log("totalpilates users", data);
     return {
         type: 'PILATES_USERS',
         pilates_users: data
@@ -111,15 +111,52 @@ export async function signUp(values) {
     console.log("action SIGNUP", data);  
     return {
         type: 'SIGNUP_FOR_CLASS',
-        pilates_users: data
+        signPilatesUsers: data[0]
     };   
 }
 
 export async function newClients() {
     const { data } = await axios.get('/new-clients-per-day');
-    console.log("action new clients", data);  
+    // console.log("action new clients", data);  
     return {
         type: 'TODAYS_CLIENTS',
         client: data
     };   
 }
+
+export async function lastMonthClients() {
+    const { data } = await axios.get('/last-month-clients');
+    // console.log("action last month clients", data);  
+    return {
+        type: 'LASTMONTH_CLIENTS',
+        prevClient: data
+    };   
+}
+
+export async function getNotes() {
+    // console.log("action getNotes", {value});  
+    const { data } = await axios.get('/all-notes');
+    return {
+        type: 'GET_NOTES_DATA',
+        allNotes: data
+    };   
+}
+
+export async function addNotes(value) {
+    const { data } = await axios.post('/notes', { value });
+    // console.log("action getNotes", data);  
+    return {
+        type: 'ADD_NOTES_DATA',
+        notes: data[0]
+    };   
+}
+
+// export async function deleteNote(id) {
+//     const { data } = await axios.post(`/delete-notes/${id}`);
+//     console.log("data.id", data);
+    
+//     return {
+//         type: 'DELETE_NOTES_DATA',
+//         deleteNotes: data
+//     };   
+// }

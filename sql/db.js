@@ -249,7 +249,7 @@ module.exports.deleteYinCustomer = (id) => {
 
 module.exports.totalUsers = () => {
     return db.query(
-        `SELECT * FROM users`        
+        `SELECT * FROM users`
     );
 };
 
@@ -297,10 +297,61 @@ module.exports.insertYoga = (first, last, email, imgurl, selection) => {
 module.exports.newClients = () => {
     return db.query(
         `SELECT *
-        FROM users     
-        WHERE time_stamp >= NOW() - interval '24 hour'`
+        FROM users
+        WHERE time_stamp > TIMESTAMP 'today' 
+        ORDER BY time_stamp DESC;`
     ).catch(error => {
         console.log("newClients by id query ==>", error.message);
     });;
 };
 
+module.exports.lastMonth = () => {
+    return db.query(
+        `SELECT *
+        FROM users
+        WHERE extract(month FROM time_stamp) = 10;`
+    ).catch(error => {
+        console.log("lastMonth by id query ==>", error.message);
+    });;
+};
+
+module.exports.addNotes = (note) => {
+    return db.query(
+        `INSERT INTO notes(note)
+        VALUES($1)
+        RETURNING *`,
+        [note]
+    ).catch(error => {
+        console.log("addNotes query==>", error);
+    });
+};
+
+module.exports.getNotes = () => {
+    return db.query(
+        `SELECT * FROM notes`,
+        []
+    ).catch(error => {
+        console.log("getNotes query error==>", error);
+    });
+};
+
+module.exports.deleteNotes = (id) => {
+    return db.query(
+        `DELETE FROM notes WHERE notes.id = $1
+        RETURNING id`,
+        [id]
+    ).catch(error => {
+        console.log("deleteNote by id query ==>", error.message);
+    });
+};
+
+
+// module.exports.currentMonth = () => {
+//     return db.query(
+//         `SELECT *
+//         FROM users
+//         WHERE extract(month FROM time_stamp) = 10;`
+//     ).catch(error => {
+//         console.log("lastMonth by id query ==>", error.message);
+//     });;
+// };
