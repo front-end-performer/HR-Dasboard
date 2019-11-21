@@ -11,6 +11,8 @@ HTML / JSX, CSS, JavaScript, Node.js with Express.js, React, Redux, React Hooks,
 
 ```bash
 npm install
+node .
+node bundle-server.js
 ```
 ## Features 
 * total members
