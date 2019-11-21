@@ -11,14 +11,7 @@ class Uploader extends Component {
         };
     }
 
-    componentDidMount() {
-        console.log("uploader mounted");
-        console.log("this.props", this.props);
-    }
-
     onChangeHandler(event) {
-        console.log(event.target.files[0].size);
-
         if (event.target.files[0].size > 2097152) {
             this.setState({
                 selectedFile: null,
@@ -30,22 +23,13 @@ class Uploader extends Component {
                 fileErrorSize: true
             });
         }
-
     }
 
     upload() {
         let { selectedFile } = this.state;
         let fd = new FormData;
         fd.append('image', selectedFile);
-
-        // console.log("this.state.selectedFile", selectedFile);
-
         axios.post('/upload', fd).then(({ data }) => {
-            // console.log("upload result", result.data);
-            //unshift the new img into the array
-            console.log("upload", data);
-
-            // this.imagesArr.unshift(result.data);
             this.props.updateImg(data.url);
         }).catch(error => {
             console.log(error.message);

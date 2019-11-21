@@ -17,11 +17,8 @@ class PilatesProfile extends Component {
     }
 
     async componentDidMount() {
-
         try {
             const { data } = await axios.get(`/pilatesUser/${this.props.match.params.id}`);
-            console.log("data PilatesProfile ==> ", data);
-            
             this.setState({
                 firstName: data.first,
                 lastName: data.last,
@@ -41,7 +38,7 @@ class PilatesProfile extends Component {
 
 
     render() {
-        let { firstName, lastName, profilePic, bio, userParamsId, phone, email, gender } = this.state;
+        let { firstName, lastName, profilePic, bio, phone, email, gender } = this.state;
         return (
             <React.Fragment>
                 <Profile

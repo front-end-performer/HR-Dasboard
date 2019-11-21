@@ -22,11 +22,10 @@ const RegisterNewClient = () => {
 
     const register = () => {
         axios.post('/register-newuser', values).then(() => {
-            // location.replace('/');
             dispatch(totalUsers());
             dispatch(newClients());
         }).catch(error => {
-            console.log("register submit error", error);
+            console.log(error);
         });
     }
 
@@ -98,15 +97,6 @@ const RegisterNewClient = () => {
                                 <Input onChange={handleChange} type="textarea" name="bio" id="exampleAddInfo" />
                             </Col>
                         </FormGroup>
-                        {/* <FormGroup row>
-                                <Label style={{fontSize: '0.9em'}} for="exampleFile" sm={2}>File</Label>
-                                <Col sm={10}>
-                                    <Input onChange={e => this.handleChange(e)} type="file" name="file" id="exampleFile" />
-                                    <FormText color="muted">
-                                        This is some placeholder block-level help text for the above input.
-                                    </FormText>
-                                </Col>
-                            </FormGroup> */}
                         <FormGroup check row>
                             <Col sm={{ size: 10, offset: 2 }}>
                                 <Button onClick={() => register()}>Submit</Button>

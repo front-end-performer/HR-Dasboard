@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Col, Badge, Table } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { totalPilatesUsers, removePilatesUser } from '../../../../actions';
+import { totalPilatesUsers } from '../../../../actions';
 import { Link } from 'react-router-dom';
 import axios from '../../../../axios';
 
@@ -11,9 +11,6 @@ const PilatesTable = () => {
     const pilatesUsers = useSelector(
         state => state.pilates_users
     );
-
-    // console.log("pilatesUsers clients side ===>", pilatesUsers);
-
 
     useEffect(() => {
         dispatch(totalPilatesUsers());
@@ -54,7 +51,7 @@ const PilatesTable = () => {
                                     <td><Link to={`/pilates_user/${pilatesclient.id}`}>{pilatesclient.first} {pilatesclient.last}</Link></td>
                                     <td>{pilatesclient.email}</td>
                                     <td>{pilatesclient.phone}</td>
-                                    <td><Badge color="danger" onClick={() => handleDelete(pilatesclient.id)}>Remove</Badge></td></tr>
+                                    <td><Badge className="pointer" color="danger" onClick={() => handleDelete(pilatesclient.id)}>Remove</Badge></td></tr>
                                 )
                             })}
                         </tbody>

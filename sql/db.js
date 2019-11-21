@@ -2,15 +2,6 @@ const spicedPg = require('spiced-pg');
 const db = spicedPg(process.env.DATABASE_URL || "postgres:postgres:postgres@localhost:5432/users");
 const { compare } = require('bcryptjs');
 
-// module.exports.insertUsers = (first, last, email, password) => {
-//     return db.query(
-//         `INSERT INTO users (first, last, email, password)
-//         VALUES ($1, $2, $3, $4)
-//         RETURNING id`,
-//         [first, last, email, password]
-//     );
-// };
-
 module.exports.insertNewUser = (gender, first, last, email, phone, dob, address, package, bio) => {
     return db.query(
         `INSERT INTO users (gender, first, last, email, phone, dob, address, package, bio)
@@ -37,7 +28,7 @@ module.exports.getUserInfo = (id) => {
         WHERE users.id = $1`,
         [id]
     ).catch(error => {
-        console.log("getUserInfo by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -47,7 +38,7 @@ module.exports.getPilatesUserInfo = (id) => {
         WHERE pilatesusers.id = $1`,
         [id]
     ).catch(error => {
-        console.log("getPilatesUserInfo by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -57,7 +48,7 @@ module.exports.getYogaUserInfo = (id) => {
         WHERE yinusers.id = $1`,
         [id]
     ).catch(error => {
-        console.log("getYogaUserInfo by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -67,7 +58,7 @@ module.exports.updateImgUrl = (imgUrl, id) => {
         WHERE users.id = $2`,
         [imgUrl, id]
     ).catch(error => {
-        console.log("insertImgUrl by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -77,7 +68,7 @@ module.exports.updateUsersBio = (bio, id) => {
         WHERE users.id = $2`,
         [bio, id]
     ).catch(error => {
-        console.log("updateUsersBio by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -87,7 +78,7 @@ module.exports.getRecentUsers = () => {
         ORDER BY id DESC
         LIMIT 4;`
     ).catch(error => {
-        console.log("getRecentUsers by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -98,72 +89,9 @@ module.exports.getMoreUsers = (val) => {
         ORDER BY id DESC`,
         [val + '%']
     ).catch(error => {
-        console.log("getMoreUsers by id query ==>", error.message);
+        console.log(error.message);
     });
 };
-
-module.exports.initFriendShipStatus = (sender_id, receiver_id) => {
-    return db.query(
-        `SELECT * FROM friendships
-        WHERE (receiver_id = $1 AND sender_id = $2)
-        OR (receiver_id = $2 AND sender_id = $1)`,
-        [receiver_id, sender_id]
-    ).catch(error => {
-        console.log("initFriendShipStatus by id query ==>", error.message);
-    });
-};
-
-module.exports.insertFriendShipIds = (sender_id, receiver_id) => {
-    return db.query(
-        `INSERT INTO friendships(sender_id, receiver_id) 
-        VALUES ($1, $2)
-        RETURNING id`,
-        [sender_id, receiver_id]
-    ).catch(error => {
-        console.log("insertFriendShipIds by id query ==>", error.message);
-    });
-};
-
-module.exports.updateAcceptColumn = (sender_id, receiver_id) => {
-    return db.query(
-        `UPDATE friendships SET accepted = true 
-        WHERE (receiver_id = $1 AND sender_id = $2)
-        OR (receiver_id = $2 AND sender_id = $1)
-        RETURNING id`,
-        [sender_id, receiver_id]
-    ).catch(error => {
-        console.log("updateAcceptColumn by id query ==>", error.message);
-    });
-};
-
-module.exports.deleteFriendShipRow = (sender_id, receiver_id) => {
-    return db.query(
-        `DELETE FROM friendships
-        WHERE (receiver_id = $1 AND sender_id = $2)
-        OR (receiver_id = $2 AND sender_id = $1)
-        RETURNING id`,
-        [sender_id, receiver_id]
-    ).catch(error => {
-        console.log("deleteFriendShipRow by id query ==>", error.message);
-    });
-};
-
-
-module.exports.pendingUsers = (id) => {
-    return db.query(
-        `SELECT users.id, first, last, imgurl, accepted
-        FROM friendships
-        JOIN users
-        ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
-        OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
-        OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)`,
-        [id]
-    ).catch(error => {
-        console.log("penndingUsers by id query ==>", error.message);
-    });
-};
-
-// CHAT
 
 module.exports.getLastTenMessages = () => {
     return db.query(
@@ -174,7 +102,7 @@ module.exports.getLastTenMessages = () => {
         ORDER BY chat.id DESC
         LIMIT 10`
     ).catch(error => {
-        console.log("getLastTenMessages by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -184,7 +112,7 @@ module.exports.insertUsersMessages = (sender_id, message) => {
         VALUES ($1, $2)`,
         [sender_id, message]
     ).catch(error => {
-        console.log("insertUsersMessages by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -198,10 +126,9 @@ module.exports.getNewMsg = (userId) => {
         LIMIT 1`,
         [userId]
     ).catch(error => {
-        console.log("getNewMsg by id query ==>", error.message);
+        console.log(error.message);
     });
 };
-
 
 
 module.exports.getPilatesCustomers = () => {
@@ -212,7 +139,7 @@ module.exports.getPilatesCustomers = () => {
         ORDER BY count(pilatesusers.id) ASC
         LIMIT 8`
     ).catch(error => {
-        console.log("getPilatesCustomers by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -222,7 +149,7 @@ module.exports.deletePilatesCustomer = (id) => {
         RETURNING id`,
         [id]
     ).catch(error => {
-        console.log("deletePilatesCustomer by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -234,7 +161,7 @@ module.exports.getYinCustomers = () => {
         ORDER BY count(yinusers.id) ASC
         LIMIT 8`
     ).catch(error => {
-        console.log("getYinCustomers by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -243,7 +170,7 @@ module.exports.deleteYinCustomer = (id) => {
         `DELETE FROM yinusers WHERE yinusers.id = $1`,
         [id]
     ).catch(error => {
-        console.log("deleteYinCustomer by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -254,12 +181,11 @@ module.exports.totalUsers = () => {
 };
 
 module.exports.deleteUser = (id) => {
-    console.log("query", id);
     return db.query(
         `DELETE FROM users WHERE users.id = $1`,
         [id]
     ).catch(error => {
-        console.log("deleteUser by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -268,7 +194,7 @@ module.exports.getByEmailClient = (email) => {
         `SELECT * FROM users WHERE email = $1`,
         [email]
     ).catch(error => {
-        console.log("getByEmailClient by id query ==>", error.message);
+        console.log(error.message);
     });;
 };
 
@@ -279,7 +205,7 @@ module.exports.insertIntoPilates = (first, last, email, imgurl, selection) => {
         RETURNING id, first, last, email`,
         [first, last, email, imgurl, selection]
     ).catch(error => {
-        console.log("insertIntoPilates by id query ==>", error.message);
+        console.log(error.message);
     });
 };
 
@@ -290,7 +216,7 @@ module.exports.insertYoga = (first, last, email, imgurl, selection) => {
         RETURNING id`,
         [first, last, email, imgurl, selection]
     ).catch(error => {
-        console.log("insertYoga by id query ==>", error.message);
+        console.log(error.message);
     });;
 };
 
@@ -301,7 +227,7 @@ module.exports.newClients = () => {
         WHERE time_stamp > TIMESTAMP 'today' 
         ORDER BY time_stamp DESC;`
     ).catch(error => {
-        console.log("newClients by id query ==>", error.message);
+        console.log(error.message);
     });;
 };
 
@@ -311,7 +237,7 @@ module.exports.lastMonth = () => {
         FROM users
         WHERE extract(month FROM time_stamp) = 10;`
     ).catch(error => {
-        console.log("lastMonth by id query ==>", error.message);
+        console.log(error.message);
     });;
 };
 
@@ -322,7 +248,7 @@ module.exports.addNotes = (note) => {
         RETURNING *`,
         [note]
     ).catch(error => {
-        console.log("addNotes query==>", error);
+        console.log(error);
     });
 };
 
@@ -331,7 +257,7 @@ module.exports.getNotes = () => {
         `SELECT * FROM notes`,
         []
     ).catch(error => {
-        console.log("getNotes query error==>", error);
+        console.log(error);
     });
 };
 
@@ -341,17 +267,6 @@ module.exports.deleteNotes = (id) => {
         RETURNING id`,
         [id]
     ).catch(error => {
-        console.log("deleteNote by id query ==>", error.message);
+        console.log(error.message);
     });
 };
-
-
-// module.exports.currentMonth = () => {
-//     return db.query(
-//         `SELECT *
-//         FROM users
-//         WHERE extract(month FROM time_stamp) = 10;`
-//     ).catch(error => {
-//         console.log("lastMonth by id query ==>", error.message);
-//     });;
-// };

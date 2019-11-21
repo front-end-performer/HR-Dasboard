@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import Chat from '../Chat/Chat';
 import { Card, CardBody, Col } from 'reactstrap';
 import { Animated } from "react-animated-css";
 
-const Profile = ({ firstName, lastName, profilePic, bioEditor, bio, click, friendButton, phone, email, address, gender }) => {
+const Profile = ({ firstName, lastName, profilePic, click, friendButton, phone, email, address }) => {
     const [isVisiable, setVisiable] = useState(false);
-
-    const onlineUser = useSelector(
-        state => state && state.onlnUsr
-    );
-
-    onlineUser && console.log("onlineUsers length ==>", Object.keys(onlineUser).length);
 
     const handleClick = () => {
         setVisiable(!isVisiable);
@@ -35,7 +28,6 @@ const Profile = ({ firstName, lastName, profilePic, bioEditor, bio, click, frien
                                     <div className="card__title">
                                         <h5 className="bold-text">Client details</h5>
                                         <ul>
-                                            {/* <li>{bioEditor || bio}</li> */}
                                             <li>Email: {email}</li>
                                             <li>Phone: {phone ? phone : `...`}</li>
                                             <li>Address: {address && <span>...</span>}</li>
@@ -47,13 +39,9 @@ const Profile = ({ firstName, lastName, profilePic, bioEditor, bio, click, frien
                         </Col>
                     </div>
                 </div>
-
-                {/* {onlineUser && <span className="notification__count online_users-notification">{Object.keys(onlineUser).length}</span>} */}
-
                 <Animated className="animation-zIndex" animationIn="flash" animationInDelay={3000} animationOut="fadeOut" isVisible={true}>
                     <img className="coriander_chat-icon" src="../assets/msgIcon.png" onClick={handleClick} alt="coriander_chat-icon" />
                 </Animated>
-
                 {isVisiable && <Chat />}
             </div>
             <div className="mobile__footer">

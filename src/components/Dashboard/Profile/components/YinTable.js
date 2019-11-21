@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { totalYogaUsers, removeYogaUsers } from '../../../../actions';
+import { totalYogaUsers } from '../../../../actions';
 import { Card, CardBody, Col, Badge, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import axios from '../../../../axios';
@@ -11,8 +11,6 @@ const YinTable = () => {
     const yogaUsers = useSelector(
         state => state.yoga_users
     );
-
-    // console.log("yogaUsers", yogaUsers);
 
     useEffect(() => {
         dispatch(totalYogaUsers());
@@ -53,7 +51,7 @@ const YinTable = () => {
                                     <td><Link to={`/yoga_user/${yinclient.id}`}>{yinclient.first} {yinclient.last}</Link></td>
                                     <td>{yinclient.email}</td>
                                     <td>{yinclient.phone}</td>
-                                    <td><Badge color="danger" onClick={() => handleDelete(yinclient.id)}>Remove</Badge></td></tr>
+                                    <td><Badge className="pointer" color="danger" onClick={() => handleDelete(yinclient.id)}>Remove</Badge></td></tr>
                                 )
                             })}
                         </tbody>

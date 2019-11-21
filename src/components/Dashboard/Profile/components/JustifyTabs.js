@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, CardBody, Col, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
-// import axios from '../../../../axios';
 import classnames from 'classnames';
 import VerticalTabs from './VerticalTabs';
 import RegisterNewClient from './RegisterNewClient';

@@ -1,19 +1,19 @@
 import React from 'react';
 import { Col, Container, Row } from 'reactstrap';
-import Visits from './Profile/components/Visits';
+import TotalMemebers from './Profile/components/TotalMembers';
 import Attendency from './Profile/components/Attendency';
-import DevelopmentStatusCard from './Profile/components/DevelopmentStatusCard';
+import NewMembersChart from './Profile/components/NewMembersChart';
 import TimeDate from './Profile/components/TimeDate';
 import JustifyTabs from './Profile/components/JustifyTabs';
-import ChatRoom from './Profile/components/ChatRoom';
+import AdminChat from './Profile/components/AdminChat';
 
 const Manager = () => {
     return (
         <Container>
             <Row>
-                <Visits />
+                <TotalMemebers />
                 <Attendency />
-                <DevelopmentStatusCard />
+                <NewMembersChart />
                 <TimeDate />
             </Row>
             <Row>
@@ -21,7 +21,7 @@ const Manager = () => {
                     <h3 style={{ height: '20px' }} className="page-title"></h3>
                 </Col>
                 <JustifyTabs />
-                <ChatRoom />
+                <AdminChat />
             </Row>
         </Container>
     );

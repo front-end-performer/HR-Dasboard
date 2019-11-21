@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+const moment = require('moment');
 import { Card, CardBody, Col, Badge, Table } from 'reactstrap';
-import { totalUsers } from '../../../../actions';
+import { totalUsers, newClients } from '../../../../actions';
 import { Link } from 'react-router-dom';
 import axios from '../../../../axios';
 
@@ -12,15 +13,6 @@ const Clients = () => {
         state => state.data
     );
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const { data } = await axios.get('/total-clients');
-    //         setData(
-    //             data
-    //         );
-    //     })();
-    // }, [])
-
     useEffect(() => {
         dispatch(totalUsers());
     }, [data]);
@@ -30,6 +22,7 @@ const Clients = () => {
             setData(
                 data
             );
+            dispatch(newClients());
         })
     }
 
@@ -60,15 +53,15 @@ const Clients = () => {
                             {clientsTotal.map((client, index) => {
                                 return (<tr key={client.id}>
                                     <td>{index + 1}</td>
-                                    <td><img style={{width: 20}} src={client.imgurl} /></td>
+                                    <td><img style={{ width: 20 }} src={client.imgurl} /></td>
                                     <td><Link to={`/user/${client.id}`}>{client.first} {client.last}</Link></td>
                                     <td>{client.email}</td>
                                     <td>{client.phone}</td>
                                     <td>{client.address}</td>
                                     <td>{client.package}</td>
                                     <td>{client.dob}</td>
-                                    <td><Badge color="danger" onClick={() => handleDelete(client.id)}>Remove client</Badge></td>
-                                    <td>{client.time_stamp}</td>
+                                    <td><Badge className="pointer" color="danger" onClick={() => handleDelete(client.id)}>Delete client</Badge></td>
+                                    <td className="td_date">{moment(client.time_stamp).format('lll')}</td>
                                 </tr>
                                 )
                             })}

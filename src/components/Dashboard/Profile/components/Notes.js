@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNotes, getNotes, deleteNote } from '../../../../actions';
+import { addNotes, getNotes } from '../../../../actions';
 import axios from '../../../../axios';
-import { Button, Col, Card, Form, FormGroup, Label, Input, FormText, Alert } from 'reactstrap';
+import { Button, Col, Card, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 
 const Notes = () => {
     const dispatch = useDispatch();
@@ -11,7 +11,6 @@ const Notes = () => {
 
     const handleChange = (event) => {
         setValue(event.target.value);
-        console.log(event.target.value);
     }
 
     const GetNotesFromRedux = useSelector(
@@ -25,7 +24,6 @@ const Notes = () => {
     const keyCheck = (e) => {
         if (event.code === 'Enter') {
             e.preventDefault();
-            console.log('key', event.code);
             dispatch(addNotes(value));
             setValue('');
         }
@@ -39,16 +37,14 @@ const Notes = () => {
         })
     }
 
-
     if (!GetNotesFromRedux) {
         return null;
     }
 
-
     return (
         <Col xl={12}>
             <FormGroup>
-                <Label style={{padding: '20px 0'}} for="exampleTextArea">Your Notes</Label>
+                <Label style={{padding: '20px 0'}} for="exampleTextArea">Create a note</Label>
                 <Input
                     type="text"
                     value={value}

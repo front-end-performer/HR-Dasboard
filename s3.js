@@ -3,9 +3,9 @@ const fs = require('fs');
 
 let secrets;
 if (process.env.NODE_ENV == 'production') {
-    secrets = process.env; // in prod the secrets are environment variables
+    secrets = process.env; 
 } else {
-    secrets = require('./secrets'); // in dev they are in secrets.json which is listed in .gitignore
+    secrets = require('./secrets'); 
 }
 
 const s3 = new aws.S3({
@@ -18,7 +18,7 @@ exports.upload = function (req, res, next) {
         res.sendStatus(500);
         return;
     }
-    const { filename, mimetype, size, path } = req.file; // 1 uidSafe, 2 content type(img/png), 3 amount of bites in a file, 4 full path to the file
+    const { filename, mimetype, size, path } = req.file; 
     s3.putObject({
         Bucket: 'spicedling',
         ACL: 'public-read',
@@ -27,13 +27,10 @@ exports.upload = function (req, res, next) {
         ContentType: mimetype,
         ContentLength: size
     }).promise().then(() => {
-        // it worked!!! file in a bucket
-        // console.log("promise, result", result);
         next();
     }).catch(
         err => {
-            // uh oh
-            console.log("promise error", err.message);
+            console.log(err.message);
             res.sendStatus(500);
         }
     );

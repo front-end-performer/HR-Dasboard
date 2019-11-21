@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Profile from '../Profile/Profile';
 import ProfileImg from '../Profile/ProfileImg/ProfileImg';
-import FriendButton from '../FriendButton/FriendButton';
 
 class OtherProfile extends Component {
     constructor(props) {
@@ -18,14 +17,8 @@ class OtherProfile extends Component {
     }
 
     async componentDidMount() {
-        // let { userId } = this.props;
-        // if there is no user with that id... reddirect them back to /
-        // and the user is trying to visit their own page reddirect them back to it..
-
         try {
             const { data } = await axios.get(`/api/user/${this.props.match.params.id}`);
-            console.log("data otherprofile ==> ", data);
-            
             this.setState({
                 firstName: data.first,
                 lastName: data.last,
@@ -62,11 +55,6 @@ class OtherProfile extends Component {
                             lastName={lastName}
                         />
                     }
-                    // friendButton={
-                    //     <FriendButton
-                    //         userParamsId={userParamsId}
-                    //     />
-                    // }
                     bio={bio}
                 />
             </React.Fragment>

@@ -4,13 +4,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Manager from './Manager';
 import Profile from './Profile/Profile';
 import ProfileImg from './Profile/ProfileImg/ProfileImg';
-// import BioEditor from './Profile/BioEditor/BioEditor';
 import Uploader from './Uploader/Uploader';
 import Header from '../Dashboard/Header/Header';
 import OtherProfile from './OtherProfile/OtherProfile';
 import PilatesProfile from './PilatesProfile/PilatesProfile';
 import FindPeople from '../Dashboard/FindPeople/FindPeople';
-// import Friends from './Friends/Friends';
 import ChatRoom from './Chat/ChatRoom/ChatRoom';
 import YogaProfile from './YogaProfile/YogaProfile';
 
@@ -35,7 +33,7 @@ class Dashboard extends Component {
             lastName: data.last,
             profilePic: data.imgurl,
             bio: data.bio,
-            userId: data.id // logedin user id
+            userId: data.id 
         });
     }
 
@@ -112,12 +110,6 @@ class Dashboard extends Component {
                                             click={() => this.showUploader()}
                                         />
                                     }
-                                // bioEditor={
-                                //     <BioEditor
-                                //         bio={bio}
-                                //         setBio={(e) => this.setBio(e)}
-                                //     />
-                                // }
                                 />
                         } />
 
@@ -169,18 +161,6 @@ class Dashboard extends Component {
                                 />
                             )}
                         />
-                        {/* <Route
-                            path="/friends"
-                            render={props => (
-                                <Friends
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                    userId={userId}
-                                />
-                            )}
-                        /> */}
-                        {/* <Route path="/chat" component={Chat}/> */}
                         <Route
                             path="/chat"
                             render={props => (

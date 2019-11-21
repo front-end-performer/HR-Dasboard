@@ -3,7 +3,7 @@ import { Card, CardBody, Col } from 'reactstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { totalUsers } from '../../../../actions';
 
-const Visits = () => {
+const TotalMemebers = () => {
     const dispatch = useDispatch();
     const total = useSelector(
         state => state.data && state.data.length
@@ -32,4 +32,4 @@ const Visits = () => {
     );
 }
 
-export default Visits;
+export default TotalMemebers;

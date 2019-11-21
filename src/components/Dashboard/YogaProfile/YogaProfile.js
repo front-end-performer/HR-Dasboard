@@ -17,7 +17,6 @@ class YogaProfile extends Component {
     }
 
     async componentDidMount() {
-
         try {
             const { data } = await axios.get(`/yogaUser/${this.props.match.params.id}`);
             console.log("data YogaProfile ==> ", data);
@@ -41,7 +40,7 @@ class YogaProfile extends Component {
 
 
     render() {
-        let { firstName, lastName, profilePic, bio, userParamsId, phone, email, gender } = this.state;
+        let { firstName, lastName, profilePic, bio, phone, email, gender } = this.state;
         return (
             <React.Fragment>
                 <Profile

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from '../../axios'; // './axios' instance
+import axios from '../../axios'; 
 import { Animated } from "react-animated-css";
 import { HashRouter, Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
@@ -26,7 +26,7 @@ class Login extends Component {
             }).then(() => {
                 location.replace('/');
             }).catch(error => {
-                console.log("submit error", error);
+                console.log(error);
                 this.setState({
                     error: true
                 });

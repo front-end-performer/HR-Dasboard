@@ -1,7 +1,3 @@
-:root {
-	--time: 6s;
-}
-
 * {
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -25,7 +21,7 @@ body {
 	font-family: "Montserrat-Regular", sans-serif;
 	background-color: #f6f6f6;
 	color: #37474f;
-	font-size: 14px;
+	font-size: 14px!important;
 	transition: all 0.2s linear;
 	-o-transition: all 0.2s linear;
 	-moz-transition: all 0.2s linear;
@@ -223,8 +219,12 @@ button:hover {
 .dashboard__card-widget {
 	text-align: center;
 	display: flex;
-	flex-direction: column;
+    flex-direction: column;
 	justify-content: space-around;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .dashboard__total {
@@ -394,7 +394,8 @@ textarea {
 	background-size: cover;
 	background-attachment: fixed;
 	background-position-x: 60%;
-	display: flex;
+    display: flex;
+    text-align: center;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
@@ -552,6 +553,15 @@ textarea {
 
 .react-clock {
     margin: 0 auto!important;
+}
+
+.table td, .table th {
+    vertical-align: middle!important;
+}
+
+.td_date {
+    display: block;
+    width: 100px;
 }
 
 .alert p {
@@ -790,11 +800,9 @@ h3 {
 }
 
 .textarea {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     width: 100%;
     font-size: 0.7em;
-	/*
-	border: 2px solid #37474f; */
 }
 
 .inner-shadow {
@@ -810,7 +818,6 @@ h3 {
     width: 25%;
     font-size: 0.7em;
 	display: flex;
-	/* border-right: 1px solid #37474f; */
 	flex-direction: row-reverse;
 	padding-right: 0.5em;
 	align-items: center;
@@ -822,7 +829,6 @@ h3 {
 }
 
 .messages {
-	/* width: 85%; */
 	text-align: left;
 	padding-left: 40px;
 }

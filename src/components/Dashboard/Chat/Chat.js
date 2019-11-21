@@ -10,7 +10,6 @@ const Chat = () => {
     const chatMessages = useSelector(
         state => state && state.msgs
     );
-    console.log(chatMessages);
     
 
     const toggle = () => setPlaying(!playing);
@@ -24,9 +23,6 @@ const Chat = () => {
     const keyCheck = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            console.log('key', e.key);
-            console.log("name", name);
-            
             socket.emit('chatMessage', name);
             socket.emit('chatMessageNotitification', name);
             toggle();

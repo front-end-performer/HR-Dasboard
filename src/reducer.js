@@ -1,6 +1,5 @@
-export const reducer = (state = {}, action) => {  // if there is global state, then it will be passed to the state={}, or will stay just empty object
+export const reducer = (state = {}, action) => {  
 
-    // here alwasy reducer makes copie of the object state 
     if (action.type == 'RECEIVEFRIENDSWANNABES_USERS') {
         state = {
             ...state,
@@ -43,7 +42,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type == 'USER_MESSAGE') {
-        console.log("action.type ==>", action.msg);
         state = {
             ...state,
             msgs: state.msgs.concat(action.msg)
@@ -51,7 +49,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type == 'MESSAGE_NOTIFICATION') {
-        console.log("action.type ==>", action.msgNot);
         state = {
             ...state,
             msgNot: action.msgNot
@@ -86,14 +83,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
         }
     }
 
-    // if (action.type === 'SIGNUP_FOR_CLASS') {  
-    //     console.log("SIGNUP_FOR_CLASS", action.signPilatesUsers);
-    //     state = {
-    //         ...state,
-    //         pilates_users:  [...state.pilates_users, action.signPilatesUsers]
-    //     }
-    // }
-
     if (action.type === 'REMOVE_USER') {
         state = {
             ...state,
@@ -116,7 +105,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type === 'TODAYS_CLIENTS') { 
-        // console.log("action", action.type);
         state = {
             ...state, 
             client: action.client
@@ -124,7 +112,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type === 'LASTMONTH_CLIENTS') { 
-        // console.log("action", action.type);
         state = {
             ...state, 
             prevClient: action.prevClient
@@ -132,7 +119,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
     
     if (action.type === 'GET_NOTES_DATA') { 
-        console.log("action ALL_NOTES_DATA", action.type);
         state = {
             ...state, 
             getNotes: action.allNotes
@@ -140,7 +126,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type === 'ADD_NOTES_DATA') { 
-        console.log("action NOTES_DATA", action.type);
         state = {
             ...state, 
             getNotes: [...state.getNotes, action.notes]
@@ -148,7 +133,6 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
     }
 
     if (action.type === 'DELETE_NOTES_DATA') { 
-        console.log("action DELETE_NOTES_DATA", action.type);
         state = {
             ...state, 
             getNotes: action.deleteNotes
@@ -157,17 +141,3 @@ export const reducer = (state = {}, action) => {  // if there is global state, t
 
     return state;
 };
-
-
-// ... - spread operator is good for making copies of arrays and objects
-// state = {
-//     ...state.
-// }
-
-// let arr = [1, 2, 3];
-// let newArr = [0, ...arr]; // add item to the begining of the copy array 
-// let newArr = [...arr, 4];// add item to the end of the copy array 
-
-// map - array method, its a loop on each item and return brand new array for us and lets modified immutabaly. 
-// filter - array method, also loop. good for removing one item or multiply items in array. rteyrun brand new array that doesnt include the items we filtered out
-

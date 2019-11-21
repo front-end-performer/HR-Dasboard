@@ -24,8 +24,6 @@ const getState = (x, y) => ({
     }],
 });
 
-
-
 const DynamiclyRefreshedDoughnut = () => {
     const [data, setData] = useState();
 
