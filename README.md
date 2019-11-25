@@ -5,7 +5,7 @@ HTML / JSX, CSS, JavaScript, Node.js with Express.js, React, Redux, React Hooks,
 ## Visuals
 *
 <img src="https://j.gifs.com/p8VN96.gif" />
-*
+**
 <img src="https://j.gifs.com/MwBR73.gif" />
 ## Usage
 
