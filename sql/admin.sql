@@ -11,4 +11,4 @@ CREATE TABLE admin(
     admin_time_stamp TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
--- INSERT INTO admin (admin_first, admin_last, admin_email, admin_password, admin_imgurl, admin_bio) VALUES ('admin', 'admin', 'admin@admin.com', '$2a$10$2jXFpRYDEWKCNNGzRv7jqu31hokr1Od2NIm5DxeGeEasCphvX9GMu', 'https://randomuser.me/api/portraits/lego/6.jpg', 'Tequila! ⛲️🍟🐴');
+-- INSERT INTO admin (admin_first, admin_last, admin_email, admin_password, admin_imgurl, admin_bio) VALUES ('admin', 'admin', 'email@email.com', 'email', 'https://randomuser.me/api/portraits/lego/6.jpg', 'Tequila! ⛲️🍟🐴');

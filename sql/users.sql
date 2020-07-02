@@ -19,7 +19,7 @@ CREATE TABLE users(
 
 
 
--- INSERT INTO users (first, last, email, password, imgurl, bio, time_stamp) VALUES ('Andrei', 'Voronin', 'coriander603@example.com', '$2a$10$2jXFpRYDEWKCNNGzRv7jqu31hokr1Od2NIm5DxeGeEasCphvX9GMu', 'https://api.adorable.io/avatars/50/abott@adorable.png', 'animal! ⛲️🍟🐴', '2019-11-15 15:55:32.946084');
+-- INSERT INTO users (first, last, email, password, imgurl, bio, time_stamp) VALUES ('admin', 'admin', 'email@email.com', 'email', 'https://api.adorable.io/avatars/50/abott@adorable.png', 'animal! ⛲️🍟🐴', '2019-11-15 15:55:32.946084');
 -- INSERT INTO users (first, last, email, password, imgurl, bio, time_stamp) VALUES ('Kim', 'Kardashian', 'coriander604@example.com', '$2a$10$2jXFpRYDEWKCNNGzRv7jqu31hokr1Od2NIm5DxeGeEasCphvX9GMu', 'https://api.adorable.io/avatars/50/abott@adorable.png', 'animal! ⛲️🍟🐴', '2019-11-15 15:58:32.946084');
 -- INSERT INTO users (first, last, email, password, imgurl, bio, time_stamp) VALUES ('Alex', 'Big', 'coriander605@example.com', '$2a$10$2jXFpRYDEWKCNNGzRv7jqu31hokr1Od2NIm5DxeGeEasCphvX9GMu', 'https://api.adorable.io/avatars/50/abott@adorable.png', 'animal! ⛲️🍟🐴', '2019-11-15 15:21:32.946084');
 -- INSERT INTO users (first, last, email, password, imgurl, bio, time_stamp) VALUES ('Igor', 'Puga', 'coriander606@example.com', '$2a$10$2jXFpRYDEWKCNNGzRv7jqu31hokr1Od2NIm5DxeGeEasCphvX9GMu', 'https://api.adorable.io/avatars/50/abott@adorable.png', 'animal! ⛲️🍟🐴', '2019-11-15 11:51:32.946084');
