@@ -58,7 +58,7 @@
         "redux-devtools-extension": "^2.13.8",
         "redux-promise": "^0.5.3",
         "serialize-javascript": "^2.1.2",
-        "socket.io": "^2.2.0",
+        "socket.io": "^2.4.0",
         "spiced-pg": "^1.0.0",
         "three": "^0.110.0",
         "uglifyjs-webpack-plugin": "^2.2.0",
