@@ -23,7 +23,7 @@
         "babel-loader": "^8.0.5",
         "bcryptjs": "^2.4.3",
         "bootstrap": "^4.3.1",
-        "chart.js": "^2.9.2",
+        "chart.js": "^2.9.4",
         "classnames": "^2.2.6",
         "compression": "^1.7.0",
         "cookie-session": "^2.0.0-alpha.2",
