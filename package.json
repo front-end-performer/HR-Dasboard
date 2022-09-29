@@ -53,7 +53,7 @@
         "react-three-fiber": "^3.0.8",
         "react-transition-group": "^4.3.0",
         "reactstrap": "^8.1.1",
-        "recharts": "^1.8.5",
+        "recharts": "^2.1.14",
         "redux": "^3.7.1",
         "redux-devtools-extension": "^2.13.8",
         "redux-promise": "^0.5.3",
